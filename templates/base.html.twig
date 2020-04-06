@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>E-Course_Booker &mdash; Colorlib e-Commerce Template</title>
+    <title>{% block title %}Greenfy always blooming Orchids in your lobby{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
@@ -17,7 +17,10 @@
   </head>
 
   <body>
-  
+
+    <script src="{{ asset ('assets/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset ('assets/js/jquery-ui.js') }}"></script>
+    
     <div class="site-wrap">
       <header class="site-navbar" role="banner">
         <div class="site-navbar-top">
@@ -33,7 +36,7 @@
   
               <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
                 <div class="site-logo">
-                  <a  href="{{ path ('index') }}" class="js-logo-clone" >E-Course_Booker</a>
+                  <a  href="{{ path ('index') }}" class="js-logo-clone"> E-Course_Booker </a>
                 </div>
               </div>
   
@@ -80,6 +83,7 @@
             </ul>
           </div>
         </nav>
+        
       </header>
         <!-- bg_light_area_start -->
       {% block bg_light_area %}
@@ -105,8 +109,7 @@
 
     </div>
 
-  <script src="{{ asset ('assets/js/jquery-3.3.1.min.js') }}"></script>
-  <script src="{{ asset ('assets/js/jquery-ui.js') }}"></script>
+  
   <script src="{{ asset ('assets/js/popper.min.js') }}"></script>
   <script src="{{ asset ('assets/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset ('assets/js/owl.carousel.min.js') }}"></script>
