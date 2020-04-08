@@ -36,6 +36,11 @@ class DataFile
      */
     private $link;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="dataFiles")
+     */
+    private $course;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class DataFile
     public function setLink(string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getCourse(): ?Course
+    {
+        return $this->course;
+    }
+
+    public function setCourse(?Course $course): self
+    {
+        $this->course = $course;
 
         return $this;
     }

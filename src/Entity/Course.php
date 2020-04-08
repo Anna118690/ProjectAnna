@@ -48,9 +48,38 @@ class Course
      */
     private $lessonOrderLines;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Approach", inversedBy="courses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $approach;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Language", inversedBy="courses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $language;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Level", inversedBy="courses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $level;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\AvatarCourse", inversedBy="courses")
+     */
+    private $avatar;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DataFile", mappedBy="course")
+     */
+    private $dataFiles;
+
     public function __construct()
     {
         $this->lessonOrderLines = new ArrayCollection();
+        $this->dataFiles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +172,85 @@ class Course
             // set the owning side to null (unless already changed)
             if ($lessonOrderLine->getCourse() === $this) {
                 $lessonOrderLine->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getApproach(): ?Approach
+    {
+        return $this->approach;
+    }
+
+    public function setApproach(?Approach $approach): self
+    {
+        $this->approach = $approach;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?Language
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?Language $language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    public function getLevel(): ?Level
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?Level $level): self
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?AvatarCourse
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?AvatarCourse $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DataFile[]
+     */
+    public function getDataFiles(): Collection
+    {
+        return $this->dataFiles;
+    }
+
+    public function addDataFile(DataFile $dataFile): self
+    {
+        if (!$this->dataFiles->contains($dataFile)) {
+            $this->dataFiles[] = $dataFile;
+            $dataFile->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDataFile(DataFile $dataFile): self
+    {
+        if ($this->dataFiles->contains($dataFile)) {
+            $this->dataFiles->removeElement($dataFile);
+            // set the owning side to null (unless already changed)
+            if ($dataFile->getCourse() === $this) {
+                $dataFile->setCourse(null);
             }
         }
 
