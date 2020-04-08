@@ -31,6 +31,12 @@ class Comment
      */
     private $date;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $commentMaker;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +74,18 @@ class Comment
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getCommentMaker(): ?User
+    {
+        return $this->commentMaker;
+    }
+
+    public function setCommentMaker(?User $commentMaker): self
+    {
+        $this->commentMaker = $commentMaker;
 
         return $this;
     }
