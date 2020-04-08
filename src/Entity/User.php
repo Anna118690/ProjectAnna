@@ -63,10 +63,16 @@ class User
      */
     private $lessonOrders;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="teacher")
+     */
+    private $courses;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->lessonOrders = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -214,6 +220,37 @@ class User
             // set the owning side to null (unless already changed)
             if ($lessonOrder->getStudent() === $this) {
                 $lessonOrder->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Course[]
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+            $course->setTeacher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): self
+    {
+        if ($this->courses->contains($course)) {
+            $this->courses->removeElement($course);
+            // set the owning side to null (unless already changed)
+            if ($course->getTeacher() === $this) {
+                $course->setTeacher(null);
             }
         }
 

@@ -71,10 +71,18 @@ class Course
      */
     private $avatar;
 
+     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="courses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $teacher;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\DataFile", mappedBy="course")
      */
     private $dataFiles;
+
+   
 
     public function __construct()
     {
@@ -253,6 +261,18 @@ class Course
                 $dataFile->setCourse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTeacher(): ?User
+    {
+        return $this->teacher;
+    }
+
+    public function setTeacher(?User $teacher): self
+    {
+        $this->teacher = $teacher;
 
         return $this;
     }
