@@ -41,6 +41,12 @@ class LessonOrderLine
      */
     private $priceFullLessonSansTva;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\LessonOrder", inversedBy="lessonOrderLines")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $lessonOrder;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +108,18 @@ class LessonOrderLine
     public function setPriceFullLessonSansTva(?string $priceFullLessonSansTva): self
     {
         $this->priceFullLessonSansTva = $priceFullLessonSansTva;
+
+        return $this;
+    }
+
+    public function getLessonOrder(): ?LessonOrder
+    {
+        return $this->lessonOrder;
+    }
+
+    public function setLessonOrder(?LessonOrder $lessonOrder): self
+    {
+        $this->lessonOrder = $lessonOrder;
 
         return $this;
     }

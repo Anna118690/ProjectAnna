@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,16 @@ class LessonOrder
      * @ORM\JoinColumn(nullable=false)
      */
     private $student;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\LessonOrderLine", mappedBy="lessonOrder")
+     */
+    private $lessonOrderLines;
+
+    public function __construct()
+    {
+        $this->lessonOrderLines = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +115,37 @@ class LessonOrder
     public function setStudent(?User $student): self
     {
         $this->student = $student;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LessonOrderLine[]
+     */
+    public function getLessonOrderLines(): Collection
+    {
+        return $this->lessonOrderLines;
+    }
+
+    public function addLessonOrderLine(LessonOrderLine $lessonOrderLine): self
+    {
+        if (!$this->lessonOrderLines->contains($lessonOrderLine)) {
+            $this->lessonOrderLines[] = $lessonOrderLine;
+            $lessonOrderLine->setLessonOrder($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLessonOrderLine(LessonOrderLine $lessonOrderLine): self
+    {
+        if ($this->lessonOrderLines->contains($lessonOrderLine)) {
+            $this->lessonOrderLines->removeElement($lessonOrderLine);
+            // set the owning side to null (unless already changed)
+            if ($lessonOrderLine->getLessonOrder() === $this) {
+                $lessonOrderLine->setLessonOrder(null);
+            }
+        }
 
         return $this;
     }
