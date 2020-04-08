@@ -36,6 +36,12 @@ class LessonOrder
      */
     private $paymentType;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="lessonOrders")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $student;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +91,18 @@ class LessonOrder
     public function setPaymentType(?string $paymentType): self
     {
         $this->paymentType = $paymentType;
+
+        return $this;
+    }
+
+    public function getStudent(): ?User
+    {
+        return $this->student;
+    }
+
+    public function setStudent(?User $student): self
+    {
+        $this->student = $student;
 
         return $this;
     }

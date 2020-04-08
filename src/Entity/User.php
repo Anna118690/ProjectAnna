@@ -58,9 +58,15 @@ class User
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\LessonOrder", mappedBy="student")
+     */
+    private $lessonOrders;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->lessonOrders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,6 +183,37 @@ class User
             // set the owning side to null (unless already changed)
             if ($comment->getCommentMaker() === $this) {
                 $comment->setCommentMaker(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LessonOrder[]
+     */
+    public function getLessonOrders(): Collection
+    {
+        return $this->lessonOrders;
+    }
+
+    public function addLessonOrder(LessonOrder $lessonOrder): self
+    {
+        if (!$this->lessonOrders->contains($lessonOrder)) {
+            $this->lessonOrders[] = $lessonOrder;
+            $lessonOrder->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLessonOrder(LessonOrder $lessonOrder): self
+    {
+        if ($this->lessonOrders->contains($lessonOrder)) {
+            $this->lessonOrders->removeElement($lessonOrder);
+            // set the owning side to null (unless already changed)
+            if ($lessonOrder->getStudent() === $this) {
+                $lessonOrder->setStudent(null);
             }
         }
 
