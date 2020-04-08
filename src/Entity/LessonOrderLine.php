@@ -47,6 +47,12 @@ class LessonOrderLine
      */
     private $lessonOrder;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="lessonOrderLines")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $course;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,18 @@ class LessonOrderLine
     public function setLessonOrder(?LessonOrder $lessonOrder): self
     {
         $this->lessonOrder = $lessonOrder;
+
+        return $this;
+    }
+
+    public function getCourse(): ?Course
+    {
+        return $this->course;
+    }
+
+    public function setCourse(?Course $course): self
+    {
+        $this->course = $course;
 
         return $this;
     }

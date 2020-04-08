@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,16 @@ class Course
      * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
      */
     private $priceActualHourSansTva;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\LessonOrderLine", mappedBy="course")
+     */
+    private $lessonOrderLines;
+
+    public function __construct()
+    {
+        $this->lessonOrderLines = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,6 +114,37 @@ class Course
     public function setPriceActualHourSansTva(?string $priceActualHourSansTva): self
     {
         $this->priceActualHourSansTva = $priceActualHourSansTva;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LessonOrderLine[]
+     */
+    public function getLessonOrderLines(): Collection
+    {
+        return $this->lessonOrderLines;
+    }
+
+    public function addLessonOrderLine(LessonOrderLine $lessonOrderLine): self
+    {
+        if (!$this->lessonOrderLines->contains($lessonOrderLine)) {
+            $this->lessonOrderLines[] = $lessonOrderLine;
+            $lessonOrderLine->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLessonOrderLine(LessonOrderLine $lessonOrderLine): self
+    {
+        if ($this->lessonOrderLines->contains($lessonOrderLine)) {
+            $this->lessonOrderLines->removeElement($lessonOrderLine);
+            // set the owning side to null (unless already changed)
+            if ($lessonOrderLine->getCourse() === $this) {
+                $lessonOrderLine->setCourse(null);
+            }
+        }
 
         return $this;
     }
