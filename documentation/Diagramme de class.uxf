@@ -31,15 +31,15 @@ orders (array objectLessonOrder)</panel_attributes>
     <coordinates>
       <x>400</x>
       <y>210</y>
-      <w>190</w>
+      <w>220</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>LessonOrder
 --
 dateLeesonsOrder : date
-priceTotalTVA : decimal
-priceTotalSansTVA : decimal
-paymentType: string
+priceTotal : decimal
+priceTotalSansTVA : decimal null
+paymentType: string null
 --
 
 student (object User)
@@ -64,16 +64,16 @@ cree </panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>580</x>
+      <x>610</x>
       <y>270</y>
-      <w>160</w>
+      <w>130</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
 m2=0..*
 contient</panel_attributes>
-    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -122,10 +122,10 @@ contient</panel_attributes>
     <panel_attributes>_Course_
 --
 namecourse : string
-shortDescription : string
+shortDesc : string
 description : text
-priceActuelHourTVA : decimal
-priceActuelHourSansTVA : decimal
+priceActualHour : decimal
+priceActualHourSansTVA : decimal null
 
 --
 approach (object Approach)
@@ -314,7 +314,7 @@ donne</panel_attributes>
     </coordinates>
     <panel_attributes>_Approach_
 --
-approach
+type
 description null
 --
 course (array object course)</panel_attributes>
