@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+{% block bg_light_title %} About {% endblock %}
+
+{% block content %}
+<div class="site-section border-bottom" data-aos="fade">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-md-6">
+        <div class="block-16">
+          <figure>
+            <img src="{{ asset ('assets/images/online.jpg') }}"  alt="Image placeholder" class="img-fluid rounded">
+          </figure>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+        <div class="site-section-heading pt-3 mb-4">
+            <div class="text-black"><h2>Thank you for your visit !</h2></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

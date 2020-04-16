@@ -20,7 +20,7 @@
                 
                     {% if app.user %}
                         <div class="mb-3">
-                            You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
+                            You are logged in as {{ app.user.username }}, <a href="/logout">Logout</a>
                         </div>
                     {% endif %}
                 
@@ -53,7 +53,7 @@
 
             </div>
             <div class="col-md-7">
-              <h2 style = "margin-top:20px;" class="h3 mb-3 text-black">You don't have an account yet? sign up <a href="{{ path ('register') }}" ><span ></span>Register</a></h2>
+              <h2 style = "margin-top:20px;" class="h3 mb-3 text-black">You don't have an account yet? sign up <a href="/register" ><span ></span>Register</a></h2>
             </div>
           </div>
 
