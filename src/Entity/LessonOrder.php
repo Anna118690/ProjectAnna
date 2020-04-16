@@ -39,15 +39,14 @@ class LessonOrder
     private $paymentType;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="lessonOrders")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $student;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\LessonOrderLine", mappedBy="lessonOrder")
      */
     private $lessonOrderLines;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="lessonOrder")
+     */
+    private $user;
 
     public function __construct()
     {
@@ -107,17 +106,7 @@ class LessonOrder
         return $this;
     }
 
-    public function getStudent(): ?User
-    {
-        return $this->student;
-    }
-
-    public function setStudent(?User $student): self
-    {
-        $this->student = $student;
-
-        return $this;
-    }
+  
 
     /**
      * @return Collection|LessonOrderLine[]
@@ -146,6 +135,18 @@ class LessonOrder
                 $lessonOrderLine->setLessonOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

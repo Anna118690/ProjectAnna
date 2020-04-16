@@ -32,10 +32,9 @@ class Comment
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comment")
      */
-    private $commentMaker;
+    private $userComment;
 
     public function getId(): ?int
     {
@@ -78,14 +77,16 @@ class Comment
         return $this;
     }
 
-    public function getCommentMaker(): ?User
+    
+
+    public function getUserComment(): ?User
     {
-        return $this->commentMaker;
+        return $this->userComment;
     }
 
-    public function setCommentMaker(?User $commentMaker): self
+    public function setUserComment(?User $userComment): self
     {
-        $this->commentMaker = $commentMaker;
+        $this->userComment = $userComment;
 
         return $this;
     }
