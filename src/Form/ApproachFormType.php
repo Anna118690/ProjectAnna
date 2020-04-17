@@ -13,8 +13,8 @@ class ApproachFormType extends AbstractType
     {
         
         $builder
-                // ->add('name', TextType::class)
-                ->add ('approach', ChoiceType::class, [
+              
+                ->add ('type', ChoiceType::class, [
                     'choices' => [
                         'Adult' => 'Adult',
                         'Child' => 'Child'
