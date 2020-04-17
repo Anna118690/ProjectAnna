@@ -32,6 +32,17 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            //upload fichier (photo de profile)
+            $file = $form->get('photo')->getData();
+            //dump($fichier );
+            //die();
+            
+            $nameFileServer = md5(uniqid()) . "." . $file->guessExtension();
+            
+            $file->move("files", $nameFileServer);
+           
+            $user->setPhoto($nameFileServer);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
