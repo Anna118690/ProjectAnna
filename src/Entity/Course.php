@@ -65,12 +65,6 @@ class Course
      * @ORM\JoinColumn(nullable=false)
      */
     private $level;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\AvatarCourse", inversedBy="courses")
-     */
-    private $avatar;
-
      
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\DataFile", mappedBy="course")
@@ -81,6 +75,11 @@ class Course
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="course")
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $coursePhoto;
 
    
 
@@ -222,18 +221,6 @@ class Course
         return $this;
     }
 
-    public function getAvatar(): ?AvatarCourse
-    {
-        return $this->avatar;
-    }
-
-    public function setAvatar(?AvatarCourse $avatar): self
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
     /**
      * @return Collection|DataFile[]
      */
@@ -275,6 +262,18 @@ class Course
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCoursePhoto()
+    {
+        return $this->coursePhoto;
+    }
+
+    public function setCoursePhoto ($coursePhoto)
+    {
+        $this->coursePhoto = $coursePhoto;
 
         return $this;
     }
