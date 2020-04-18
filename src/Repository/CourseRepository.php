@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Course;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @method Course|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +15,19 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class CourseRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Course::class);
+        $this->paginator = $paginator;
+    }
+
+    public function findAllPaginated($page)
+    {
+        $dbquery = $this->createQueryBuilder('course')
+        ->getQuery();
+        $pagination = $this->paginator->paginate($dbquery, $page, 5);
+        return $pagination;
+
     }
 
     // /**

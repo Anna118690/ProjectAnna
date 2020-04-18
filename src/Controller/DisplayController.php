@@ -13,19 +13,21 @@ class DisplayController extends AbstractController
 {
 
     /**
-     * @Route("/display", name="display")
+     * @Route("/display{page}", defaults={"page" : "1"}, name="display")
      */
-    public function display()
+    public function display($page)
     {
         
             $entityManager = $this->getDoctrine()->getManager();
-            $rep = $entityManager->getRepository(Course::class);    
+                
             $rep2= $entityManager->getRepository(Level::class);
             $rep3= $entityManager->getRepository(Language::class);
             $rep4= $entityManager->getRepository(Approach::class);
 
-
-            $courses = $rep->findAll();
+            $courses = $this->getDoctrine()
+            ->getRepository(Course::class)
+            ->findAllPaginated($page);
+           
             $levels = $rep2->findAll();
             $languages = $rep3->findAll();
             $approachs = $rep4->findAll();
