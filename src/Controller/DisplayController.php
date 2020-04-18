@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DisplayController extends AbstractController
 {
+
     /**
      * @Route("/display", name="display")
      */
@@ -32,4 +33,25 @@ class DisplayController extends AbstractController
             $vars = ['courses' => $courses, 'levels' => $levels, 'languages'=>$languages, 'approachs'=>$approachs];
             return $this->render("display/courses.html.twig",$vars);
     }
+
+    /**
+     * @Route("/display/course", name="display-course")
+     */
+    public function displayCourse (){
+        // obtenir le entity manager
+        $entityManager = $this->getDoctrine()->getManager();
+        // obtenir le repository
+        $rep = $entityManager->getRepository(Course::class);
+        
+        // on obtient l'objet, le filtre est envoyé sous la forme d'un array
+        $course = $rep->findOneBy (array('namecourse'=>'Elementary English'));
+        
+        // on stocke le résultat dans un array associatif 
+        // pour l'envoyer à la vue comme d'habitude
+        $vars = ['course'=> $course];
+        
+        // on renvoie l'objet à la vue, rien ne change ici
+        return $this->render ("/display/course.html.twig", $vars);
+    }
+
 }
