@@ -42,12 +42,12 @@ class DisplayController extends AbstractController
      * @Route("/display/course", name="display-course")
      */
     public function displayCourse (){
-        // obtenir le entity manager
+        
         $entityManager = $this->getDoctrine()->getManager();
-        // obtenir le repository
+       
         $rep = $entityManager->getRepository(Course::class);
         
-        // on obtient l'objet, le filtre est envoyé sous la forme d'un array
+       
         $course = $rep->findOneBy (array('namecourse'=>'Elementary English'));
         
         // on stocke le résultat dans un array associatif 

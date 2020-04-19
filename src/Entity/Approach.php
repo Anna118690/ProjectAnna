@@ -97,4 +97,10 @@ class Approach
 
         return $this;
     }
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->type;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 }

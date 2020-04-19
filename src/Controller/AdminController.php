@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Level;
 use App\Entity\Course;
+use App\Entity\Approach;
+use App\Entity\Language;
 use App\Form\CourseFormType;
 use App\Form\RegistrationFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +45,14 @@ class AdminController extends AbstractController
      */
     public function courses()
     {
-        return $this->render('admin/courses.html.twig');
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $rep = $entityManager->getRepository(Course::class);
+        
+        $courses =  $rep->findAll();
+
+        return $this->render('admin/courses.html.twig',['courses'=>$courses]);
+        
         
     }
 
@@ -55,7 +65,7 @@ class AdminController extends AbstractController
 
         $rep = $entityManager->getRepository(User::class);
         
-        $users =  $rep->findAll();
+        $users = $rep->findAll();
 
         return $this->render('admin/users.html.twig',['users'=>$users]);
     }
