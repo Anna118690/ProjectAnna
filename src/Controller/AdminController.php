@@ -9,10 +9,44 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
+
+ /**
+     * @Route("/admin")
+     */
+
 class AdminController extends AbstractController
 {
+
+     /**
+     * @Route("/", name="admin_main_page")
+     */
+    public function adminProfile()
+    {
+        return $this->render('admin/my_profile.html.twig');
+        
+    }
+
     /**
-     * @Route("/admin/add", name="add")
+     * @Route("/courses", name="courses")
+     */
+    public function courses()
+    {
+        return $this->render('admin/courses.html.twig');
+        
+    }
+
+    /**
+     * @Route("/users", name="users")
+     */
+    public function users()
+    {
+        return $this->render('admin/users.html.twig');
+        
+    }
+
+
+    /**
+     * @Route("/add", name="add")
      */
     public function add(Request $request)
     {
