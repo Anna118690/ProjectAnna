@@ -51,8 +51,13 @@ class AdminController extends AbstractController
      */
     public function users()
     {
-        return $this->render('admin/users.html.twig');
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $rep = $entityManager->getRepository(User::class);
         
+        $users =  $rep->findAll();
+
+        return $this->render('admin/users.html.twig',['users'=>$users]);
     }
 
       /**
