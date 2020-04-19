@@ -1,10 +1,89 @@
 {% extends 'admin/base.html.twig' %}
 {% block mainadmin %}
+<style>
 
-<h2>My profile <small><a onclick="return confirm('Are you sure?');" href="#">delete account</a></small></h2>
-<p class="text-left">My plan - Pro. <a onclick="return confirm('Are you sure? This can not be undone. Remember also to cancel payment in your PayPal account.');"
-        href="#">cancel plan</a></p>
 
+
+button {
+	border-radius: 20px;
+  background-color: #5a50e5;
+    border-color: #4f45e3;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+
+
+form {
+	background-color: #FFFFFF;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+  color: #8c92a0;
+	height: 100%;
+	text-align: center;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding:10px;
+  font-size:16px;
+
+}
+
+input {
+	background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	width: 100%;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #5a50e5;
+    border-color: #4f45e3;
+}
+.btn:focus, .btn:hover {
+    text-decoration: none;
+}
+
+
+  
+</style> 
+
+<h2>My profile update <h2>
+    <div class="site-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="h3 mb-3 text-black">Update</h2>
+            </div>
+            <div class="col-md-7">
+        
+    
+            {{ form_start(updateForm) }}
+    
+         
+                {{ form_row(updateForm.firstname) }}
+                {{ form_row(updateForm.lastname) }}
+                {{ form_row(updateForm.telephone) }}
+                {{ form_row(updateForm.skype) }}
+                {{ form_row(updateForm.photo) }}
+                {{ form_row(updateForm.email) }}
+                {{ form_row(updateForm.plainPassword) }}
+                {{ form_row(updateForm.agreeTerms) }}
+                
+                <button type="submit" class="btn">Register</button>
+            {{ form_end(updateForm) }}
+        </div>
+       
+        </div>
+    
+      </div>
+    </div>
+    </div>
 
 
 {% endblock %}

@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Course;
 use App\Form\CourseFormType;
+use App\Form\RegistrationFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
  /**
@@ -56,9 +58,47 @@ class AdminController extends AbstractController
       /**
      * @Route("/update", name="update")
      */
-    public function update()
+    public function update(Request $req, UserPasswordEncoderInterface $passwordEncoder)
     {
-        return $this->render('admin/update.html.twig');
+        $userUpdated = $this->getUser();
+        $userUpdated->setPhoto(null);
+        $updateProfil = $this->createForm(
+            RegistrationFormType::class,
+            $userUpdated,
+            [
+                'method' => 'POST',
+                'action' => $this->generateUrl("update")
+            ] 
+        );
+       
+        $updateProfil->handleRequest($req);
+      
+         if ($updateProfil->isSubmitted() && $updateProfil->isValid())
+        { 
+            
+            $em = $this->getDoctrine()->getManager();
+            
+            $userUpdated->setPassword(
+            $passwordEncoder->encodePassword(
+                $userUpdated,
+                $updateProfil->get('plainPassword')->getData()
+            )
+            );
+            $file = $userUpdated->getPhoto();
+        
+                $nameFileServer  = md5(uniqid()) . "." . $file->guessExtension();
+                $file->move("files",  $nameFileServer );
+    
+                $userUpdated->setPhoto( $nameFileServer );
+                $em->flush();
+            
+            $vars = ['profil' => $userUpdated];
+            return $this->render('admin/my_profile.html.twig', $vars);
+        }
+
+        return $this->render('admin/update.html.twig',
+        ['updateForm' => $updateProfil->createView()]
+    );
         
     }
 

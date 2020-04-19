@@ -203,7 +203,7 @@ class User implements UserInterface
         return $this->photo;
     }
 
-    public function setPhoto(?string $photo): self
+    public function setPhoto ($photo): self
     {
         $this->photo = $photo;
 
