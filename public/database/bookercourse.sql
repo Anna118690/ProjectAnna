@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2020 at 08:02 PM
+-- Generation Time: Apr 19, 2020 at 11:30 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -87,7 +87,8 @@ INSERT INTO `course` (`id`, `namecourse`, `short_desc`, `description`, `price_ac
 (8, 'Nederlands naar A2', 'You know the basics but you still need practice', 'You will learn advanced Dutch grammar and vocabulary, all necessary training materials will be provided by the teacher', '16.00', '13.00', 3, 5, 12, NULL, 'df107261dea981784ed8a2acf83c803f.jpeg'),
 (9, 'French A2', 'You know the basics but you still need practice', 'You will learn advanced French grammar and vocabulary, all necessary training materials will be provided by the teacher', '16.00', '13.00', 3, 6, 12, NULL, 'b7ab0ee482238c11346039c230c02d1a.jpeg'),
 (10, 'Dutch naar B1', 'Dutch Level: A2 – B1 CEFR.', 'This pre-intermediate course covers the four skills listening, reading, writing and speaking and we will look at Dutch grammar and Dutch vocabulary.', '18.00', '15.00', 3, 5, 13, NULL, '21bb064760e7afea1aefab26ab8c1639.jpeg'),
-(11, 'Ducht naar B1 deel 2', 'Dutch B1.2 deel 2 (15 hours)', 'This pre-intermediate course covers the four skills listening, reading, writing and speaking and we will look at Dutch grammar and Dutch vocabulary.', '18.00', '15.00', 3, 5, 14, NULL, 'fcae841e250b8754b4ddb9731fcb4af7.jpeg');
+(11, 'Ducht naar B1 deel 2', 'Dutch B1.2 deel 2 (15 hours)', 'This pre-intermediate course covers the four skills listening, reading, writing and speaking and we will look at Dutch grammar and Dutch vocabulary.', '18.00', '15.00', 3, 5, 14, NULL, 'fcae841e250b8754b4ddb9731fcb4af7.jpeg'),
+(12, 'English Intermediate', 'Online English lessons and exercises for Intermediate students', 'Online English lessons and exercises for Intermediate students, exercises provided by teacher', '18.00', '15.00', 3, 4, 15, NULL, '8246f3d7e280e66b23f9dfc98b13d3e2.jpeg');
 
 -- --------------------------------------------------------
 
@@ -258,9 +259,10 @@ INSERT INTO `user` (`id`, `email`, `password`, `roles`, `firstname`, `lastname`,
 (13, 'bak@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$UmgxL0RnL29lRy9IU0E2RA$uEdXlUtC5aJ46xkOPwMBI7xRS2YqYSrlEyIJJEn5wto', '[]', 'Andrzej', 'Bak', '789456123', NULL, 'bak12'),
 (14, 'bakowska@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$bUxkQy8wUkJBM0ZGVVNLbg$D2pbXV2W5NwtrrUNNadCdZkyJ6NZX8bDhhyOIS1bXss', '[]', 'Anna', 'Bakowska', '789456', '793dcd00935ae9c3142fee7dd022edd5.jpeg', 'boakowska'),
 (15, 'm@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$dGRtTTNSRUo2SWZ1NFpKbQ$9ti2S0c0Zmr3bUvSkXY2RiDHyyy8xaAweMi1eXj6T1M', '[]', 'mariola', 'kiepska', '7894555', 'C:\\xampp\\tmp\\phpA427.tmp', 'm145'),
-(16, 'aaa@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$a3JpeHNtemZjdnNWb1ZzMA$THgagykf+tR9Y2qbN/HvV9uV6hz5o26TwKlLDc7INvo', '[]', 'anna', 'haha', '7894566', 'C:\\xampp\\tmp\\php9591.tmp', 'haha'),
+(16, 'aaa@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$eWxZNmpDaWdKNXFZUnIvSA$tvSrRVxxKIcfvKIE9Q6amdgJnVUbzxYpVgp/T1SZT+0', '[]', 'anna', 'haha', '7894566', 'b26301def934e1f6af660a0706a41cbc.jpeg', 'haha'),
 (17, 'lionel@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$RFdnZXd5ZjZscFhKR2VvdA$SqLFWOQdhZqHcVK3fG2at98d8lGQwIGqxZl7OBzgdv0', '[]', 'Lionel', 'Du', '789456', '4732fe0a169dcda223ab3adfdcbcce62.jpeg', 'lione8'),
-(18, 'iza@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$QTNZank1MjQ0NlZDWHE4Ng$V1vaBGX1q6+nSaKpbp0SW1dJibyZRsMmLcvuSo+c2r4', '[]', 'Iza', 'bobo', '78', 'ec3b07d4f4f92d2071502d9bd4d198f8.jpeg', 'iza899');
+(18, 'iza@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$QTNZank1MjQ0NlZDWHE4Ng$V1vaBGX1q6+nSaKpbp0SW1dJibyZRsMmLcvuSo+c2r4', '[]', 'Iza', 'bobo', '78', 'ec3b07d4f4f92d2071502d9bd4d198f8.jpeg', 'iza899'),
+(19, 'annaadmin@gmail.com', '$argon2id$v=19$m=65536,t=4,p=1$MzJ1dmdwaC5iTnlWNTR6Zw$Z6BOS5Pe2PdQ3sHMoqC7Mo5R1o8Xc9wTJhrJtAmOSKg', '[\"ROLE_ADMIN\"]', 'AnnaAdmin', 'Las', '4589', 'cef8a6cbaf9ce812a393385c07d2d656.jpeg', 'anna123');
 
 --
 -- Indexes for dumped tables
@@ -356,7 +358,7 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `data_file`
@@ -392,7 +394,7 @@ ALTER TABLE `level`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables

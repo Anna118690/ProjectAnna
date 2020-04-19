@@ -3,10 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Level;
 use App\Entity\Course;
-use App\Entity\Approach;
-use App\Entity\Language;
 use App\Form\CourseFormType;
 use App\Form\RegistrationFormType;
 use Symfony\Component\HttpFoundation\Request;

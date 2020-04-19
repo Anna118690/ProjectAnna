@@ -20,25 +20,35 @@ class UserFixtures extends Fixture
     
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
-        for ($i=0; $i<5; $i++){
+
+        foreach ($this->getUserData() as [$firstname, $lastname, $email, $password, $skype, $telephone, $roles])
+        {
             $user = new User();
-            $user->setEmail("user".$i."@gmail.com");
-            $user->setPassword($this->passwordEncoder->encodePassword(
-                $user, 
-                'lePassword' .$i
-            ));
+            $user->setFirstname($firstname);
+            $user->setLastName($lastname);
+            $user->setEmail($email);
+            $user->setPassword($this->password_encoder->encodePassword($user, $password));
+            $user->setSkype($skype);
+            $user->setTelephone($telephone);
+            $user->setRoles($roles);
 
-
-            $user->setFirstname("Anna" .$i);
-            $user->setLastname("Laskowska" . $i);
-            $user->setTelephone("371448899" .$i);
-            $user->setSkype("Anna1234" . $i);
             $manager->persist($user);
         }
         $manager->flush();
-
     }
+
+    private function getUserData(): array
+    {
+        return [
+
+            ['John', 'Wayne', 'jw@symf4.loc', 'passw', 'John5', '789456123', ['ROLE_ADMIN']],
+            ['John', 'Wayne2', 'jw2@symf4.loc', 'passw', 'John6', '789486423', ['ROLE_ADMIN']],
+            ['John', 'Doe', 'jd@symf4.loc', 'passw', null, null ['ROLE_USER']]
+
+        ];
+    }
+      
+
+    
 }
 
