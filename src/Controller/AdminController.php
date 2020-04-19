@@ -44,6 +44,25 @@ class AdminController extends AbstractController
         
     }
 
+      /**
+     * @Route("/update", name="update")
+     */
+    public function update()
+    {
+        return $this->render('admin/update.html.twig');
+        
+    }
+
+     /**
+     * @Route("/delete", name="delete")
+     */
+    public function delete()
+    {
+        return $this->render('admin/delete.html.twig');
+        
+    }
+
+
 
     /**
      * @Route("/add", name="add")

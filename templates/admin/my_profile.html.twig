@@ -1,54 +1,49 @@
 {% extends 'admin/base.html.twig' %}
 {% block mainadmin %}
 
-<h2>My profile <small><a onclick="return confirm('Are you sure?');" href="#">delete account</a></small></h2>
-<p class="text-left">My plan - Pro. <a onclick="return confirm('Are you sure? This can not be undone. Remember also to cancel payment in your PayPal account.');"
-        href="#">cancel plan</a></p>
-<p class="text-left">My plan - Free. <a href="#">get paid plan</a></p>
+<h2>My profile </h2>
+<div class="containerProfile">
 
-<form class="mt-5" method="POST" action="#">
-    <div class="form-group">
-        <label for="vimeoapikey">Vimeo API key</label>
-        <input required type="text" class="form-control is-invalid" id="vimeoapikey" placeholder="Enter api key">
-        <div class="invalid-feedback">
-            Please provide api key
+    <div class="profile">
+
+        <div class="profile-image">
+
+            <img src="#" alt="Profile picture">
+
         </div>
-    </div>
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input required type="text" class="form-control is-invalid" id="name" placeholder="Your name">
-        <div class="invalid-feedback">
-            Please provide your name
+
+        <div class="profile-user-settings">
+
+            <h2 class="profile-user-name">Your Name</h2>
+            <h2 class="profile-user-surname">Your Lastname</h2>
+            <h2 class="profile-user-skype">Your Skype</h2>
+            <h2 class="profile-user-skype">Your Telephone</h2>
+        
+            <button class="btn profile-settings-btn" aria-label="profile settings"><i class="far fa-comments"></i></button>
+
+        
+
         </div>
-    </div>
-    <div class="form-group">
-        <label for="lastname">Last name</label>
-        <input required type="text" class="form-control is-invalid" id="lastname" placeholder="Your last name">
-        <div class="invalid-feedback">
-            Please provide your last name
+
+        <div class="profile-stats">
+
+            <ul>
+                <li><span class="profile-stat-count">13</span> Number of scheduled hours of courses</li>
+                <li><span class="profile-stat-count">25</span> Number of hours of courses completed</li>
+      
+            </ul>
+
         </div>
-    </div>
-    <div class="form-group">
-        <label for="email">Email address</label>
-        <input required type="email" class="form-control is-invalid" id="email" placeholder="Enter email">
-        <div class="invalid-feedback">
-            Please provide valid email address
+
+        <div class="profile-bio">
+
+            <p><span class="profile-real-name">Hello </span> Great to see you again!</p>
+
         </div>
+
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input required type="password" class="form-control is-invalid" id="password" placeholder="Password">
-        <div class="invalid-feedback">
-            Please provide password (min. 6 characters)
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password_confirmation">Confirm password</label>
-        <input required type="password" class="form-control is-invalid" id="password_confirmation" placeholder="Confirm password">
-        <div class="invalid-feedback">
-            Please provide valid password confirmation
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+    <!-- End of profile section -->
+
+</div>
+
 {% endblock %}
