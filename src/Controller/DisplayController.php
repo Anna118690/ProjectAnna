@@ -6,6 +6,7 @@ use App\Entity\Level;
 use App\Entity\Course;
 use App\Entity\Approach;
 use App\Entity\Language;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -24,9 +25,8 @@ class DisplayController extends AbstractController
             $rep3= $entityManager->getRepository(Language::class);
             $rep4= $entityManager->getRepository(Approach::class);
 
-            $courses = $this->getDoctrine()
-            ->getRepository(Course::class)
-            ->findAllPaginated($page);
+            $courses = $this->getDoctrine()->getRepository(Course::class)->findAllPaginated($page);
+            
            
             $levels = $rep2->findAll();
             $languages = $rep3->findAll();
@@ -35,6 +35,8 @@ class DisplayController extends AbstractController
             $vars = ['courses' => $courses, 'levels' => $levels, 'languages'=>$languages, 'approachs'=>$approachs];
             return $this->render("display/courses.html.twig",$vars);
     }
+
+  
 
     /**
      * @Route("/display/course", name="display-course")

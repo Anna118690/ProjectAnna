@@ -25,7 +25,7 @@ class CourseRepository extends ServiceEntityRepository
     {
         $dbquery = $this->createQueryBuilder('course')
         ->getQuery();
-        $pagination = $this->paginator->paginate($dbquery, $page, 5);
+        $pagination = $this->paginator->paginate($dbquery, $page, 6);
         return $pagination;
 
     }

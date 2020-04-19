@@ -72,6 +72,12 @@ class FrontController extends AbstractController
         return $this->render('front/contact.html.twig');
     }
 
-    
+       /**
+     * @Route("/search-results", methods={"POST"}, name="search_results")
+     */
+    public function searchResults()
+    {
+        return $this->render('front/search_results.html.twig');
+    }
 
 }
