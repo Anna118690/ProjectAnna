@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Course;
 use App\Form\CourseFormType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 
 
  /**
@@ -22,8 +23,16 @@ class AdminController extends AbstractController
      */
     public function adminProfile()
     {
-        return $this->render('admin/my_profile.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $rep = $em->getRepository(User::class);
+
+        $currentUser = $this->getUser();
         
+        $profil = $rep->find($currentUser->getId());
+   
+        $vars = ['profil' => $profil];
+        return $this->render('admin/my_profile.html.twig', $vars);
+
     }
 
     /**

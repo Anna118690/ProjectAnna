@@ -8,21 +8,16 @@
 
         <div class="profile-image">
 
-            <img src="#" alt="Profile picture">
+            <img src="{{ asset('/files/' ~ profil.photo)}}" alt="Profile picture">
 
         </div>
 
         <div class="profile-user-settings">
 
-            <h2 class="profile-user-name">Your Name</h2>
-            <h2 class="profile-user-surname">Your Lastname</h2>
-            <h2 class="profile-user-skype">Your Skype</h2>
-            <h2 class="profile-user-skype">Your Telephone</h2>
-        
-            <button class="btn profile-settings-btn" aria-label="profile settings"><i class="far fa-comments"></i></button>
-
-        
-
+            <h2 class="profile-user-name">Firstname : {{profil.firstname}}  </h2>
+            <h2 class="profile-user-surname"> Lastname: {{profil.lastname}}</h2>
+            <h2 class="profile-user-skype">Telephone: {{profil.telephone}}</h2>
+            <h2 class="profile-user-skype">Skype: {{profil.skype}}</h2>
         </div>
 
         <div class="profile-stats">
@@ -37,7 +32,7 @@
 
         <div class="profile-bio">
 
-            <p><span class="profile-real-name">Hello </span> Great to see you again!</p>
+            <p><span class="profile-real-name">Hello {{profil.firstname}}  {{profil.lastname}} !</span> Great to see you again!</p>
 
         </div>
 
