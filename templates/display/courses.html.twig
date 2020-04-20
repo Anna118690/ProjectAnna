@@ -47,6 +47,7 @@
                     <h3><a href="/display/course">{{ course.namecourse}}</a></h3>
                     <p class="mb-0">{{ course.shortDesc}}</p>
                     <p class="text-primary font-weight-bold">{{ course.priceActualHour}}</p>
+                    <h6><a class="ml-1" href="#">Comments </a> ({{course.comments.count}})</h6>
                   </div>
                 </div>
               </div>
@@ -64,7 +65,7 @@
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Language</h3>
               <ul class="list-unstyled mb-0">
                 {% for language in languages %}
-                <li class="mb-1"><a href="#" class="d-flex"><span>{{ language.language }}</span> <span class="text-black ml-auto">(2,220)</span></a></li>
+                <li class="mb-1"><a href="#" class="d-flex"><span>{{ language.language }}</span> <span class="text-black ml-auto">({{language.courses.count}})</span></a></li>
                 {% endfor %}
               </ul>
             </div>
@@ -73,7 +74,7 @@
                 <h3 class="mb-3 h6 text-uppercase text-black d-block">Level</h3>
                 <ul class="list-unstyled mb-0">
                   {% for level in levels %}
-                  <li class="mb-1"><a href="#" class="d-flex"><span>{{ level.level }}</span> <span class="text-black ml-auto">(2,220)</span></a></li>
+                  <li class="mb-1"><a href="#" class="d-flex"><span>{{ level.level }}</span> <span class="text-black ml-auto">({{level.courses.count}})</span></a></li>
                   {% endfor %}
                 </ul>
               </div>
@@ -82,7 +83,7 @@
                 <h3 class="mb-3 h6 text-uppercase text-black d-block">Approach</h3>
                 <ul class="list-unstyled mb-0">
                   {% for approach in approachs %}
-                  <li class="mb-1"><a href="#" class="d-flex"><span>{{ approach.type }}</span> <span class="text-black ml-auto">(2,220)</span></a></li>
+                  <li class="mb-1"><a href="#" class="d-flex"><span>{{ approach.type }}</span> <span class="text-black ml-auto">({{approach.courses.count}})</span></a></li>
                   {% endfor %}
                 </ul>
               </div>

@@ -14,7 +14,8 @@ ALTER TABLE `approach`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_9474526C5F0EBBFF` (`user_comment_id`);
+  ADD KEY `IDX_9474526C5F0EBBFF` (`user_comment_id`),
+  ADD KEY `IDX_9474526C591CC992` (`course_id`);
 
 --
 -- Indexes for table `course`
@@ -87,7 +88,7 @@ ALTER TABLE `approach`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -139,6 +140,7 @@ ALTER TABLE `user`
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
+  ADD CONSTRAINT `FK_9474526C591CC992` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
   ADD CONSTRAINT `FK_9474526C5F0EBBFF` FOREIGN KEY (`user_comment_id`) REFERENCES `user` (`id`);
 
 --
