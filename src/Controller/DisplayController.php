@@ -58,4 +58,6 @@ class DisplayController extends AbstractController
         return $this->render ("/display/course.html.twig", $vars);
     }
 
+   
+
 }

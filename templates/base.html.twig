@@ -29,10 +29,10 @@
             <div class="row align-items-center">
       
               <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
-                <form method="POST" class="site-block-top-search"
+                <form method="GET" class="site-block-top-search"
                   action="{{ path ('search_results') }}">
                   <span class="icon icon-search2"></span>
-                  <input type="text" class="form-control border-0" placeholder="Language Search">
+                  <input name="query" type="search" class="form-control border-0" placeholder="Language Search">
                   <button class="btn btn-outline-sucess my-2 my-sm-0" type="submit">Search</button>
                 </form>
               </div>

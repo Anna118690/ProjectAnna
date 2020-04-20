@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Course;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FrontController extends AbstractController
 {
@@ -72,12 +74,25 @@ class FrontController extends AbstractController
         return $this->render('front/contact.html.twig');
     }
 
-       /**
-     * @Route("/search-results", methods={"POST"}, name="search_results")
+     /**
+     * @Route("/search-results/{page}", methods={"GET"}, defaults={"page": "1"}, name="search_results")
      */
-    public function searchResults()
+    public function searchResults($page, Request $request)
     {
-        return $this->render('front/search_results.html.twig');
-    }
+        $courses = null;
+        $query = null;
 
+        if($query = $request->get('query'))
+        {
+            $courses = $this->getDoctrine()
+            ->getRepository(Course::class)
+            ->findByLanguage($query, $page, $request->get('sortby'));
+            if(!$courses->getItems()) $courses = null;
+        }
+
+        return $this->render('display/search_results.html.twig',[
+            'courses' => $courses,
+            'query' => $query,
+        ]);
+}
 }

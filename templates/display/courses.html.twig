@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
-  
 {% block content %}
 <div class="bg-light py-3">
   <div class="container">
@@ -37,28 +35,9 @@
               </div>
             </div>
             <div class="row mb-5">
-                {% for course in courses %}
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="#" ></a><img src="{{ asset ('filesCourse/' ~ course.coursePhoto ) }}" alt="{{course.namecourse}}" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="/display/course">{{ course.namecourse}}</a></h3>
-                    <p class="mb-0">{{ course.shortDesc}}</p>
-                    <p class="text-primary font-weight-bold">{{ course.priceActualHour}}</p>
-                    <h6><a class="ml-1" href="#">Comments </a> ({{course.comments.count}})</h6>
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
-
-
-            </div>
-            
+              {{ include('display/includes/_courses.html.twig', {'courses' : courses}) }}
+            </div>       
           </div>
-
-    
 
           <div class="col-md-3 order-1 mb-5 mb-md-0">
             <div class="border p-4 rounded mb-4">
@@ -90,9 +69,7 @@
               {{ knp_pagination_render(courses)}}
           </div>
         </div>
-
- 
-        
+    
       </div>
     </div>
     

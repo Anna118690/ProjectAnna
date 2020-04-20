@@ -30,6 +30,30 @@ class CourseRepository extends ServiceEntityRepository
 
     }
 
+    public function findByLanguage(string $query, int $page, ?string $sort_method)
+    {
+        $sort_method = $sort_method != 'rating' ? $sort_method : 'ASC'; //tmp
+        $querybuilder = $this->createQueryBuilder('c');
+        $searchTerms = $this->prepareQuery($query);
+        foreach ($searchTerms as $key => $term)
+        {
+            $querybuilder
+            ->orWhere('c.namecourse LIKE :t_'.$key)
+            ->setParameter('t_'.$key, '%'.trim($term).'%');
+        }
+
+            $dbquery =  $querybuilder
+            ->orderBy('c.namecourse', $sort_method)
+            ->getQuery();
+
+        return $this->paginator->paginate($dbquery, $page, 5);
+    }
+
+    private function prepareQuery(string $query): array
+        {
+            return explode(' ',$query);
+        }
+
     // /**
     //  * @return Course[] Returns an array of Course objects
     //  */
