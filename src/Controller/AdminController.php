@@ -38,7 +38,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/courses", name="courses")
+     * @Route("/su/courses", name="courses")
      */
     public function courses()
     {
@@ -54,7 +54,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/users", name="users")
+     * @Route("/su/users", name="users")
      */
     public function users()
     {
@@ -126,7 +126,7 @@ class AdminController extends AbstractController
 
 
     /**
-     * @Route("/add", name="add")
+     * @Route("/su/add", name="add")
      */
     public function add(Request $request)
     {

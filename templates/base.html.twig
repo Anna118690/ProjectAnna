@@ -46,10 +46,14 @@
               <div class="col-6 col-md-4 order-3 order-md-3 text-right">
                 <div class="site-top-icons">
                   <ul>
+                    {% if not app.user %}
                     <li><a href="/login" ><span class="icon icon-person"></span>LogIn</a></li>
                     <li><a href="/register" ><span class="icon icon-edit"></span>Register</a></li>
+                    {% endif %}
+                    {% if app.user %}
                     <li><a href="{{ path ('admin_main_page') }}"><span class="icon icon-heart-o"></span>My Account</a></li>
                     <li>
+                    {% endif %}
                       <a href="{{ path ('cart') }}" class="site-cart">
                         <span class="icon icon-shopping_cart"></span>
                         <span class="count">2</span>
