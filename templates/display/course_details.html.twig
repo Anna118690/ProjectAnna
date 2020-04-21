@@ -45,6 +45,27 @@
           <p><a href="cart.html" class="buy-now btn btn-sm btn-primary">Book this course</a></p>
           </div>
         </div>
+        <hr>
+
+    <div class="row m-2">
+    <a id="video_comments"></a>
+
+   {% for comment in course.comments %}
+
+    <ul class="list-unstyled text-left">
+        <li class="media">
+            <img class="mr-3" style="width: 100px; height:100px;" src="{{ asset('/files/' ~ comment.userComment.photo)}}" alt="Generic placeholder image">
+            <div class="media-body">
+                <h5 class="mt-0 mb-1"><b>{{comment.userComment.firstname}} {{comment.userComment.lastname}}</b> <small class="text-muted">added a comment <small><b></b></small></small></h5>
+                {{comment.description}}
+            </div>
+        </li>
+    </ul>
+    <hr>
+
+    {% endfor %}
+
+        
         <div class="col-md-12">
           <form method="POST" action="">
               <div class="form-group">

@@ -107,4 +107,10 @@ class Comment
 
         return $this;
     }
+
+    /* public function __toString(){
+        
+        return $this->date->format('Y-m-d');
+        
+    } */
 }
