@@ -16,10 +16,6 @@ class Comment
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $topic;
 
     /**
      * @ORM\Column(type="text")
@@ -46,17 +42,7 @@ class Comment
         return $this->id;
     }
 
-    public function getTopic(): ?string
-    {
-        return $this->topic;
-    }
-
-    public function setTopic(string $topic): self
-    {
-        $this->topic = $topic;
-
-        return $this;
-    }
+   
 
     public function getDescription(): ?string
     {
@@ -108,9 +94,5 @@ class Comment
         return $this;
     }
 
-    /* public function __toString(){
-        
-        return $this->date->format('Y-m-d');
-        
-    } */
+
 }

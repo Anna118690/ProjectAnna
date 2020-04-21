@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Level;
 use App\Entity\Course;
+use App\Entity\Comment;
 use App\Entity\Approach;
 use App\Entity\Language;
 use App\Repository\CourseRepository;
@@ -62,6 +63,37 @@ class DisplayController extends AbstractController
         return $this->render ("/display/course_details.html.twig",
     ['course'=>$repo->courseDetails($course)]);
     }
+
+
+    /**
+     * @Route("/display/new-comment/{course}", methods={"POST"}, name="new_comment")
+     */
+    public function newComment(Course $course, Request $request)
+     {
+      $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+      if ( !empty( trim($request->request->get('comment'))))
+      {
+        $comment = new Comment();
+        $comment->setDescription($request->request->get('comment'));
+        $comment->setUserComment($this->getUser());
+        $comment->setDate(new \DateTime());
+        $comment->setCourse($course);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($comment);
+        $em->flush();
+        
+
+      }
+
+      return $this->redirectToRoute('display-course',['course'=>$course->getId()]);
+
+
+
+    }
+
+
 
    
 

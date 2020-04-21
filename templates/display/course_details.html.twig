@@ -56,7 +56,7 @@
         <li class="media">
             <img class="mr-3" style="width: 100px; height:100px;" src="{{ asset('/files/' ~ comment.userComment.photo)}}" alt="Generic placeholder image">
             <div class="media-body">
-                <h5 class="mt-0 mb-1"><b>{{comment.userComment.firstname}} {{comment.userComment.lastname}}</b> <small class="text-muted">added a comment <small><b></b></small></small></h5>
+                <h5 class="mt-0 mb-1"><b>{{comment.userComment.firstname}} {{comment.userComment.lastname}}</b> <small class="text-muted">added a comment <small><b>{{comment.date | ago}}</b></small></small></h5>
                 {{comment.description}}
             </div>
         </li>
@@ -67,10 +67,10 @@
 
         
         <div class="col-md-12">
-          <form method="POST" action="">
+          <form method="POST" action="{{path('new_comment', {'course':course.id})}}">
               <div class="form-group">
                   <label for="exampleFormControlTextarea1">Add a comment</label>
-                  <textarea required class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  <textarea name="comment" required class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
               </div>
               <button type="submit" class="btn btn-primary">Add</button>
     
