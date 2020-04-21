@@ -15,6 +15,7 @@
         <th>Language</th>
         <th>Level</th>
         <th>Approach</th>
+        <th>Teacher</th>
         <th>Delete</th>
         
         </tr>
@@ -31,6 +32,7 @@
         <td>{{ course.language}}</td>
         <td>{{ course.level}}</td>
         <td>{{ course.approach}}</td>
+        <td>{{ course.user.lastname}}</td>
         <td><a href="#" onclick="return confirm('Are you sure?');"><i class="fas fa-trash"></i></a></td>
         </tr>
     {% endfor %}

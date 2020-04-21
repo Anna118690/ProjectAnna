@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Entity\Level;
 use App\Entity\Approach;
 use App\Entity\Language;
+use App\Repository\UserRepository;
 use App\Repository\LevelRepository;
 use App\Repository\ApproachRepository;
 use App\Repository\LanguageRepository;
@@ -62,6 +64,17 @@ class CourseFormType extends AbstractType
             'choice_label' => function ($x)
             {
                 return strtoupper($x->getLevel());
+            }
+        ])
+
+        ->add('user', EntityType::class,[
+            'class' => User::class, 
+            'query_builder' => function(UserRepository $er){
+                return $er->createQueryBuilder('generic')->orderBy('generic.lastname');
+            },
+            'choice_label' => function ($x)
+            {
+                return strtoupper($x->getLastname());
             }
         ])
         ->add('coursePhoto', FileType::class, array ('label'=>"Upload photo course"));
