@@ -11,6 +11,7 @@ use App\Repository\CourseRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class DisplayController extends AbstractController
 {
@@ -45,24 +46,22 @@ class DisplayController extends AbstractController
      */
     public function displayCourse (CourseRepository $repo, $course){
         
-      /*   $entityManager = $this->getDoctrine()->getManager();
-       
-        $rep = $entityManager->getRepository(Course::class);
-        
-       
-        $course = $rep->findOneBy (array('namecourse'=>'Elementary English'));
-        
-        // on stocke le résultat dans un array associatif 
-        // pour l'envoyer à la vue comme d'habitude
-        $vars = ['course'=> $course];
-        
-        // on renvoie l'objet à la vue, rien ne change ici
-        return $this->render ("/display/course_details.html.twig", $vars); */
-        // dump($repo -> courseDetails($course));
 
         return $this->render ("/display/course_details.html.twig",
     ['course'=>$repo->courseDetails($course)]);
     }
+
+  /**
+     * @Route("/display/order-line/{course}", name="order_line")
+     */
+    public function displayOrderLine (CourseRepository $repo, $course){
+        
+
+      return $this->render ("/display/order_line.html.twig",
+  ['course'=>$repo->orderLine($course)]);
+  }
+
+
 
 
     /**
@@ -89,12 +88,36 @@ class DisplayController extends AbstractController
 
       return $this->redirectToRoute('display-course',['course'=>$course->getId()]);
 
-
-
     }
+    
+
+
+
+
+    /**
+     * @Route("/display/delete-comment/{comment}", name="delete_comment")
+     * @Security("user.getId() == comment.getUserComment().getId()")
+     */
+
+     /* public function deleteComment(Comment $comment, Request $request)
+     {
+       $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+       $em = $this->getDoctrine()->getManager();
+       $em->remove($comment);
+       $em->flush();
+
+       return $this->redirectToRoute('display');
+    }
+ */
+     }
+
+
+
+
 
 
 
    
 
-}
+

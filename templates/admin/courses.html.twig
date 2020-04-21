@@ -8,6 +8,7 @@
     <thead>
         <tr>
         <th>#</th>
+        <th>Photo</th>
         <th>Name</th>
         <th>Short Desc</th>
         <th>Price VAT</th>
@@ -25,6 +26,7 @@
         {% for course in courses %}
         <tr>
         <td>{{course.id}}</td>
+        <td><img class="mr-3" style="width: 70px; height:70px;" src={{ asset('/filesCourse/' ~ course.coursePhoto)}} alt="Generic placeholder image"></td>
         <td>{{ course.namecourse}}</td>
         <td>{{ course.shortDesc}}</td>
         <td>{{ course.priceActualHour}}</td>
@@ -33,11 +35,18 @@
         <td>{{ course.level}}</td>
         <td>{{ course.approach}}</td>
         <td>{{ course.user.lastname}}</td>
-        <td><a href="#" onclick="return confirm('Are you sure?');"><i class="fas fa-trash"></i></a></td>
+        <td><a href="#" onclick="delete_course(event);"><i style="color:red;" class="fas fa-trash"></i>Delete</a></td>
         </tr>
     {% endfor %}
     </tbody>
     </table>
 </div>
+
+<script>
+    function delete_course(e)
+    {
+    confirm('Are you sure?');
+    }
+</script>
 
 {% endblock %}
