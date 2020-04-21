@@ -6,6 +6,7 @@ use App\Entity\Level;
 use App\Entity\Course;
 use App\Entity\Approach;
 use App\Entity\Language;
+use App\Repository\CourseRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,11 +40,11 @@ class DisplayController extends AbstractController
   
 
     /**
-     * @Route("/display/course", name="display-course")
+     * @Route("/display/course/{course}", name="display-course")
      */
-    public function displayCourse (){
+    public function displayCourse (CourseRepository $repo, $course){
         
-        $entityManager = $this->getDoctrine()->getManager();
+      /*   $entityManager = $this->getDoctrine()->getManager();
        
         $rep = $entityManager->getRepository(Course::class);
         
@@ -55,7 +56,11 @@ class DisplayController extends AbstractController
         $vars = ['course'=> $course];
         
         // on renvoie l'objet à la vue, rien ne change ici
-        return $this->render ("/display/course.html.twig", $vars);
+        return $this->render ("/display/course_details.html.twig", $vars); */
+        dump($repo -> courseDetails($course));
+
+        return $this->render ("/display/course_details.html.twig",
+    ['course'=>$repo->courseDetails($course)]);
     }
 
    

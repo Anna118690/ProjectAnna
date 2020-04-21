@@ -148,6 +148,7 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($course);
             $entityManager->flush();
+            
             return new Response("Course added");
         }
         else {

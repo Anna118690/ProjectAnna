@@ -49,11 +49,26 @@ class CourseRepository extends ServiceEntityRepository
         return $this->paginator->paginate($dbquery, $page, 5);
     }
 
+    
+
+    
+    public function courseDetails($id)
+
+    {
+        return $this->createQueryBuilder('c')
+        ->leftJoin('c.comments', 'm')
+        ->leftJoin('c.user', 'u')
+        ->addSelect('c', 'u')
+        ->where('c.id = :id')
+        ->setParameter('id', $id)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
+
     private function prepareQuery(string $query): array
         {
             return explode(' ',$query);
         }
-
     // /**
     //  * @return Course[] Returns an array of Course objects
     //  */
