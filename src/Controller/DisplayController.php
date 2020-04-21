@@ -57,7 +57,7 @@ class DisplayController extends AbstractController
         
         // on renvoie l'objet à la vue, rien ne change ici
         return $this->render ("/display/course_details.html.twig", $vars); */
-        dump($repo -> courseDetails($course));
+        // dump($repo -> courseDetails($course));
 
         return $this->render ("/display/course_details.html.twig",
     ['course'=>$repo->courseDetails($course)]);

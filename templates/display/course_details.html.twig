@@ -26,27 +26,42 @@
           <p class="mb-4">{{ course.description}}</p>
           <p class="mb-4">Price for 60 min:</p>
           <p><strong class="text-primary h4">{{ course.priceActualHour}}</strong></p>
+          <p class="mb-4">Teacher:</p>
+          <p><strong class="text-primary h4">{{ course.user.firstname}} {{ course.user.lastname}}</strong></p>
 
-          
 
           <div class="mb-5">
             <div class="input-group mb-3" style="max-width: 120px;">
-            <div class="input-group-prepend">
+            <!-- <div class="input-group-prepend">
               <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
             </div>
             <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
             <div class="input-group-append">
               <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-            </div>
+            </div> -->
           </div>
 
           </div>
-          <p><a href="cart.html" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
+          <p><a href="cart.html" class="buy-now btn btn-sm btn-primary">Book this course</a></p>
           </div>
         </div>
+        <div class="col-md-12">
+          <form method="POST" action="">
+              <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Add a comment</label>
+                  <textarea required class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Add</button>
+    
+          </form>
+      </div>
     </div>
   </div>
+
+
+  
 </div>
+
 
    
 {% endblock %}  
