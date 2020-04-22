@@ -51,15 +51,7 @@ class DisplayController extends AbstractController
     ['course'=>$repo->courseDetails($course)]);
     }
 
-  /**
-     * @Route("/display/order-line/{course}", name="order_line")
-     */
-    public function displayOrderLine (CourseRepository $repo, $course){
-        
-
-      return $this->render ("/display/order_line.html.twig",
-  ['course'=>$repo->orderLine($course)]);
-  }
+ 
 
 
 

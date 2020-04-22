@@ -68,7 +68,7 @@ class AdminController extends AbstractController
     }
 
       /**
-     * @Route("/update", name="update")
+     * @Route("/su/update", name="update")
      */
     public function update(Request $req, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -117,9 +117,14 @@ class AdminController extends AbstractController
      /**
      * @Route("/delete", name="delete")
      */
-    public function delete()
+    public function delete($id)
     {
-        return $this->render('admin/delete.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $rep = $em->getRepository(Course::class);
+        $Course=$rep->find($id);
+        $em->remove($Course);
+        $em->flush();
+        return $this->redirectToRoute('admin/courses');
         
     }
 
@@ -171,5 +176,52 @@ class AdminController extends AbstractController
             );
             
         }
+    }
+  
+
+        /**
+     * @Route("/update-course/{id}", name="update_course")
+     */
+    public function updateCourse(Request $req, $id)
+    {
+
+        
+        $courseUpdated = new Course();
+        $updatedCourseForm = $this->createForm( CourseFormType::class, $courseUpdated);
+        
+        $updatedCourseForm->handleRequest($req);
+        dd($req);
+      
+         if ($updatedCourseForm->isSubmitted() && $updatedCourseForm->isValid())
+        { 
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $rep = $entityManager->getRepository(course::class);
+            $courseUpdated=$rep->find($id);
+            $courseUpdated->setNameCourse($courseUpdated->getNameCourse());
+            $courseUpdated->setShortDesc($courseUpdated->getShortDesc());
+            $courseUpdated->setDescription($courseUpdated->getDescription());
+            $courseUpdated->setPriceActualHour($courseUpdated->getPriceActualHour());
+            $courseUpdated->setPriceActualHourSansTVA($courseUpdated->getPriceActualHourSansTVA());
+            
+            $file = $updatedCourseForm->get('coursePhoto')->getData();
+            $fileNameServer = md5(uniqid()) . "." . $file->guessExtension();
+            $file ->move ('filesCourse', $fileNameServer);  
+            $courseUpdated->setCoursePhoto( $fileNameServer);
+
+
+    
+            $entityManager->flush();
+            return new Response("Course added");
+           
+        }
+
+        return $this->render(
+            '/admin/update_course.html.twig',
+            ['updatedCourseForm' => $updatedCourseForm->createView()]
+        );
+        
+        
+   
     }
 }

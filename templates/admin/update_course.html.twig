@@ -1,0 +1,110 @@
+{% extends 'admin/base.html.twig' %}
+{% block mainadmin %}
+
+
+<style>
+
+
+
+button {
+	border-radius: 20px;
+  background-color: #5a50e5;
+    border-color: #4f45e3;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+
+
+form {
+	background-color: #FFFFFF;
+	align-items: left;
+	justify-content: left;
+	flex-direction: column;
+  color: #8c92a0;
+	height: 100%;
+	text-align: center;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding:20px;
+  font-size:16px;
+
+}
+textarea {
+    color:darkblue;
+    margin:10px;
+    
+}
+
+select {
+    color:darkblue;
+    margin:10px;
+
+}
+
+input {
+	background-color: #eee;
+	border: none;
+	padding: 15px 20px;
+	width: 100%;
+    align-items: left;
+	justify-content: left;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #5a50e5;
+    border-color: #4f45e3;
+}
+.btn:focus, .btn:hover {
+    text-decoration: none;
+}
+
+
+  
+</style>      
+<div class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="h3 mb-3 text-black">Update this Course </h2>
+        </div>
+        <div class="col-md-7">
+
+
+
+            {{ form_start (updatedCourseForm)  }}
+            <h1> Update a course </h1>
+            
+	    {{ form_row(updatedCourseForm.namecourse) }}
+        {{ form_row(updatedCourseForm.shortDesc)  }}
+        {{ form_row(updatedCourseForm.description)}}
+        {{ form_row(updatedCourseForm.priceActualHour) }}
+
+        {{ form_row(updatedCourseForm.priceActualHourSansTVA) }}
+        {{ form_row (updatedCourseForm.approach)  }}
+		{{ form_row(updatedCourseForm.language) }}
+		{{ form_row(updatedCourseForm.level) }}
+		{{ form_row(updatedCourseForm.user)  }}
+		{{ form_row(updatedCourseForm.coursePhoto)  }}
+        <button class="btn" type="submit"> Save </button> 
+        {{ form_end(updatedCourseForm)}}
+
+           
+
+
+          
+        </div>
+   
+    </div>
+
+  </div>
+</div>
+</div>
+ 
+
+{% endblock %}
