@@ -11,7 +11,6 @@
         <th>Photo</th>
         <th>Name</th>
         <th>Short Desc</th>
-        <th>Description</th>
         <th>Price VAT</th>
         <th>Price</th>
         <th>Language</th>
@@ -31,16 +30,14 @@
         <td><img class="mr-3" style="width: 70px; height:70px;" src={{ asset('/filesCourse/' ~ course.coursePhoto)}} alt="Generic placeholder image"></td>
         <td>{{ course.namecourse}}</td>
         <td>{{ course.shortDesc}}</td>
-        <td>{{ course.description}}</td>
         <td>{{ course.priceActualHour}}</td>
         <td>{{ course.priceActualHourSansTVA}}</td>
         <td>{{ course.language}}</td>
         <td>{{ course.level}}</td>
         <td>{{ course.approach}}</td>
         <td>{{ course.user.lastname}}</td>
-       
-        <td><a href="/admin/update-course/{{course.id}}" onclick="update_course(event);"><i style="color:red;" class="fas fa-trash"></i>Update</a></td>
-        <td><a href="#" onclick="delete_course(event);"><i style="color:red;" class="fas fa-trash"></i>Delete</a></td>
+        <td><a href="/admin/su/updatecourse/{{course.id}}" onclick="update_course(event);"><i style="color:red;" class="fas fa-trash"></i>Update</a></td>
+        <td><a href="/admin/su/deletecourse/{{course.id}}" onclick="delete_course(event);"><i style="color:red;" class="fas fa-trash"></i>Delete</a></td>
         </tr>
     {% endfor %}
     </tbody>
@@ -59,3 +56,4 @@
 </script>
 
 {% endblock %}
+

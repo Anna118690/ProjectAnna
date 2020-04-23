@@ -8,7 +8,6 @@
         <thead>
             <tr>
             <th>#</th>
-            <th>Photo</th>
             <th>Name</th>
             <th>Last name</th>
             <th>Email</th>
@@ -23,18 +22,23 @@
             {% for user in users %}
             <tr>
             <td>{{user.id}}</td>
-            <td><img class="mr-3" style="width: 70px; height:70px;" src={{ asset('/files/' ~ user.photo)}} alt="Generic placeholder image"></td>
             <td>{{ user.firstname}}</td>
             <td>{{ user.lastname}}</td>
             <td>{{ user.email}}</td>
             <td>{{ user.skype}}</td>
             <td>{{ user.telephone}}</td>
 
-            <td><a href="#" onclick="return confirm('Are you sure?');"><i class="fas fa-trash"></i></a></td>
+            <td><a href="/admin/su/deleteuser/{{user.id}}" onclick="delete_user(event);"><i style="color:red;" class="fas fa-trash"></i>Delete</a></td>
             </tr>
         {% endfor %}
         </tbody>
         </table>
     </div>
+    <script>
+    function delete_user(e)
+    {
+    confirm('Are you sure?');
+    }
+</script>
 
 {% endblock %}

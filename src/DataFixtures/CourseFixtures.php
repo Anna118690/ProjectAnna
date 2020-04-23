@@ -48,7 +48,7 @@ class CourseFixtures extends Fixture
     {
         return [
 
-            ['English', 'English desc', 'English desc', 15, 12, 'photo1.jpg',1,1,1,1]
+            ['English', 'English desc', 'English desc', 15, 12, 'photo1.jpg',4,11,3,18]
         ];
     }
       

@@ -27,48 +27,19 @@ class AdminController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository(User::class);
-
-        $currentUser = $this->getUser();
-        
+        $currentUser = $this->getUser(); 
         $profil = $rep->find($currentUser->getId());
-   
+
         $vars = ['profil' => $profil];
         return $this->render('admin/my_profile.html.twig', $vars);
 
     }
 
-    /**
-     * @Route("/su/courses", name="courses")
-     */
-    public function courses()
-    {
-        $entityManager = $this->getDoctrine()->getManager();
+    //ZARZADZANIE PALNELEM UZYTKOWNIKA ///
 
-        $rep = $entityManager->getRepository(Course::class);
-        
-        $courses =  $rep->findAll();
-
-        return $this->render('admin/courses.html.twig',['courses'=>$courses]);
-        
-        
-    }
-
-    /**
-     * @Route("/su/users", name="users")
-     */
-    public function users()
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $rep = $entityManager->getRepository(User::class);
-        
-        $users = $rep->findAll();
-
-        return $this->render('admin/users.html.twig',['users'=>$users]);
-    }
 
       /**
-     * @Route("/su/update", name="update")
+     * @Route("/update", name="update")
      */
     public function update(Request $req, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -114,19 +85,18 @@ class AdminController extends AbstractController
         
     }
 
+    //przekieruj na strone gdzie uzytkownik moze usunac swoje konto
+
      /**
      * @Route("/delete", name="delete")
      */
-    public function delete($id)
+    public function delete()
     {
-        $em = $this->getDoctrine()->getManager();
-        $rep = $em->getRepository(Course::class);
-        $Course=$rep->find($id);
-        $em->remove($Course);
-        $em->flush();
-        return $this->redirectToRoute('admin/courses');
+        return $this->render('admin/delete.html.twig');
         
     }
+
+    // uzytkowanik moze wykonac akcje usuwania konta 
 
      /**
      * @Route("/delete-account", name="delete_account")
@@ -141,6 +111,65 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('index');
     }
 
+
+
+    //ZARZADZANIE PANELEM ADMINISTRATORA
+
+    //POKAZ WSZYSTKIE KURSY
+
+    /**
+     * @Route("/su/courses", name="courses")
+     */
+    public function courses()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $rep = $entityManager->getRepository(Course::class);
+        
+        $courses =  $rep->findAll();
+
+        return $this->render('admin/courses.html.twig',['courses'=>$courses]);
+        
+        
+    }
+
+    //POKAZ WSZYSTKICH UZYTKOWNIKOW
+
+    /**
+     * @Route("/su/users", name="users")
+     */
+    public function users()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $rep = $entityManager->getRepository(User::class);
+        
+        $users = $rep->findAll();
+
+        return $this->render('admin/users.html.twig',['users'=>$users]);
+    }
+
+
+    // usun uzytkowanika z bazy danych - OK
+
+     /**
+     * @Route("/su/deleteuser/{id}", name="deleteuser")
+     */
+    public function deleteuser($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $rep = $em->getRepository(User::class);
+        $User=$rep->find($id);
+        $em->remove($User);
+        $em->flush();
+        return $this->redirectToRoute('users');
+        
+    }
+
+
+
+
+    // DODAJ NOWY KURS - OK
 
 
     /**
@@ -177,22 +206,42 @@ class AdminController extends AbstractController
             
         }
     }
-  
 
-        /**
-     * @Route("/update-course/{id}", name="update_course")
+    //USUN KURS - OK
+
+    /**
+     * @Route("/su/deletecourse/{id}", name="deletecourse")
+     */
+    public function deletecourse($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $rep = $em->getRepository(Course::class);
+        $Course=$rep->find($id);
+        $em->remove($Course);
+        $em->flush();
+        return $this->redirectToRoute('courses');
+        
+    }
+
+
+
+
+    //UPDATE INNY KURS - OK
+
+       /**
+     * @Route("/su/updatecourse/{id}", name="updatecourse")
      */
     public function updateCourse(Request $req, $id)
     {
 
         
         $courseUpdated = new Course();
-        $updatedCourseForm = $this->createForm( CourseFormType::class, $courseUpdated);
+        $updateCourse = $this->createForm( CourseFormType::class, $courseUpdated);
         
-        $updatedCourseForm->handleRequest($req);
-        dd($req);
+        $updateCourse->handleRequest($req);
+        
       
-         if ($updatedCourseForm->isSubmitted() && $updatedCourseForm->isValid())
+         if ($updateCourse->isSubmitted() && $updateCourse->isValid())
         { 
             
             $entityManager = $this->getDoctrine()->getManager();
@@ -204,24 +253,19 @@ class AdminController extends AbstractController
             $courseUpdated->setPriceActualHour($courseUpdated->getPriceActualHour());
             $courseUpdated->setPriceActualHourSansTVA($courseUpdated->getPriceActualHourSansTVA());
             
-            $file = $updatedCourseForm->get('coursePhoto')->getData();
+            $file = $updateCourse->get('coursePhoto')->getData();
             $fileNameServer = md5(uniqid()) . "." . $file->guessExtension();
             $file ->move ('filesCourse', $fileNameServer);  
             $courseUpdated->setCoursePhoto( $fileNameServer);
-
-
     
             $entityManager->flush();
-            return new Response("Course added");
+            return $this->redirectToRoute('courses');
            
         }
 
         return $this->render(
             '/admin/update_course.html.twig',
-            ['updatedCourseForm' => $updatedCourseForm->createView()]
+            ['updatedCourseForm' => $updateCourse->createView()]
         );
-        
-        
-   
     }
 }
