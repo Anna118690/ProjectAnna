@@ -22,14 +22,19 @@
                 <div class="float-md-left mb-4"><h2 class="text-black h5">Book your course</h2></div>
                 <div class="d-flex">
                   <div class="dropdown mr-1 ml-md-auto">
-                    <label for="language_language">Choose language:</label> 
-                    <select name="courseId">
-                      <div id="selectLanguage" class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                        {% for language in languages %}
-                         <option value = {{ language.id }}>{{ language.language }} </option>
-                        {% endfor %}
-                    </div>
-                  </select>
+                    <form id="form-sorting" action="" method="GET">
+                      <label for="language_language">Choose language:</label> 
+                      <select name="courseId">
+                        <div id="selectLanguage" class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                          {% for language in languages %}
+                           <option value = 'language'>{{ language.language }} </option>
+                          {% endfor %}
+                        </select>
+                        {% if query is defined %}
+                        <input type="hidden" name="query" value="{{query}}">
+                        {% endif %}
+                        </form>
+  
                   </div>
                 </div>
               </div>

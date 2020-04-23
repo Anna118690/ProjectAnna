@@ -91,7 +91,7 @@ class DisplayController extends AbstractController
      * @Security("user.getId() == comment.getUserComment().getId()")
      */
 
-     /* public function deleteComment(Comment $comment, Request $request)
+     /*  public function deleteComment(Comment $comment, Request $request)
      {
        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
@@ -99,9 +99,9 @@ class DisplayController extends AbstractController
        $em->remove($comment);
        $em->flush();
 
-       return $this->redirectToRoute('display');
-    }
- */
+       return $this->redirectToRoute('display-course');
+    } */
+
      }
 
 

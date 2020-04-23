@@ -8,6 +8,7 @@
         <thead>
             <tr>
             <th>#</th>
+            <th>Photo</th>
             <th>Name</th>
             <th>Last name</th>
             <th>Email</th>
@@ -22,6 +23,7 @@
             {% for user in users %}
             <tr>
             <td>{{user.id}}</td>
+            <td><img class="mr-3" style="width: 70px; height:70px;" src={{ asset('/files/' ~ user.photo)}} alt="Generic placeholder image"></td>
             <td>{{ user.firstname}}</td>
             <td>{{ user.lastname}}</td>
             <td>{{ user.email}}</td>

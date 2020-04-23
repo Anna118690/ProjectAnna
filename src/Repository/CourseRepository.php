@@ -32,7 +32,7 @@ class CourseRepository extends ServiceEntityRepository
 
     public function findByLanguage(string $query, int $page, ?string $sort_method)
     {
-        $sort_method = $sort_method != 'rating' ? $sort_method : 'ASC'; //tmp
+        $sort_method =  'ASC'; //tmp
         $querybuilder = $this->createQueryBuilder('c');
         $searchTerms = $this->prepareQuery($query);
         foreach ($searchTerms as $key => $term)
@@ -72,6 +72,8 @@ class CourseRepository extends ServiceEntityRepository
                return 2 <= mb_strlen($term);
            });
         }
+
+    
     // /**
     //  * @return Course[] Returns an array of Course objects
     //  */
