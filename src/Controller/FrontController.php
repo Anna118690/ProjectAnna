@@ -94,5 +94,5 @@ class FrontController extends AbstractController
             'courses' => $courses,
             'query' => $query,
         ]);
-}
+    }
 }
