@@ -113,6 +113,9 @@ class AdminController extends AbstractController
 
 
 
+
+
+
     //ZARZADZANIE PANELEM ADMINISTRATORA
 
     //POKAZ WSZYSTKIE KURSY
@@ -196,7 +199,7 @@ class AdminController extends AbstractController
             $entityManager->persist($course);
             $entityManager->flush();
             
-            return $this->redirectToRoute('courses');
+            return new Response("Course added");
         }
         else {
             return $this->render(
@@ -226,7 +229,7 @@ class AdminController extends AbstractController
 
 
 
-    //UPDATE INNY KURS - OK
+    //UPDATE NOWY INNY KURS
 
        /**
      * @Route("/su/updatecourse/{id}", name="updatecourse")

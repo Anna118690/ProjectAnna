@@ -17,12 +17,12 @@ class LessonOrderLine
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $date;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", nullable=true)
      */
     private $hour;
 
@@ -32,7 +32,7 @@ class LessonOrderLine
     private $durationMin;
 
     /**
-     * @ORM\Column(type="decimal", precision=6, scale=2)
+     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
      */
     private $priceFullLesson;
 
@@ -42,16 +42,16 @@ class LessonOrderLine
     private $priceFullLessonSansTva;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\LessonOrder", inversedBy="lessonOrderLines")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $lessonOrder;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="lessonOrderLines")
      * @ORM\JoinColumn(nullable=false)
      */
     private $course;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\LessonOrder", inversedBy="lessonOrderLines")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $lessonOrder;
 
     public function getId(): ?int
     {
@@ -63,7 +63,7 @@ class LessonOrderLine
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(?\DateTimeInterface $date): self
     {
         $this->date = $date;
 
@@ -75,7 +75,7 @@ class LessonOrderLine
         return $this->hour;
     }
 
-    public function setHour(\DateTimeInterface $hour): self
+    public function setHour(?\DateTimeInterface $hour): self
     {
         $this->hour = $hour;
 
@@ -99,7 +99,7 @@ class LessonOrderLine
         return $this->priceFullLesson;
     }
 
-    public function setPriceFullLesson(string $priceFullLesson): self
+    public function setPriceFullLesson(?string $priceFullLesson): self
     {
         $this->priceFullLesson = $priceFullLesson;
 
@@ -118,18 +118,6 @@ class LessonOrderLine
         return $this;
     }
 
-    public function getLessonOrder(): ?LessonOrder
-    {
-        return $this->lessonOrder;
-    }
-
-    public function setLessonOrder(?LessonOrder $lessonOrder): self
-    {
-        $this->lessonOrder = $lessonOrder;
-
-        return $this;
-    }
-
     public function getCourse(): ?Course
     {
         return $this->course;
@@ -138,6 +126,18 @@ class LessonOrderLine
     public function setCourse(?Course $course): self
     {
         $this->course = $course;
+
+        return $this;
+    }
+
+    public function getLessonOrder(): ?LessonOrder
+    {
+        return $this->lessonOrder;
+    }
+
+    public function setLessonOrder(?LessonOrder $lessonOrder): self
+    {
+        $this->lessonOrder = $lessonOrder;
 
         return $this;
     }

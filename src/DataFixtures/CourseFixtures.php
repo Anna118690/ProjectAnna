@@ -18,11 +18,11 @@ class CourseFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 
-        foreach ($this->getCourseData() as [$namecourse, $shortDesc, $description,  $priceActualHour, $priceActualHourSansTVA, $coursePhoto ,  $language, $level, $type, $user])
+        foreach ($this->getCourseData() as [$namecourse, $shortDesc, $description,  $priceActualHour, $priceActualHourSansTVA, $coursePhoto ,  $language, $level, $approach, $user])
         {
             $language = $manager->getRepository(Language::class)->find($language);
             $level = $manager->getRepository(Level::class)->find($level);
-            $approach = $manager->getRepository(Approach::class)->find($type);
+            $approach = $manager->getRepository(Approach::class)->find($approach);
         
             $user = $manager->getRepository(User::class)->find($user);
             $course = new Course();

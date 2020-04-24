@@ -74,7 +74,7 @@ class FrontController extends AbstractController
         return $this->render('front/contact.html.twig');
     }
 
-     /**
+      /**
      * @Route("/search-results/{page}", methods={"GET"}, defaults={"page": "1"}, name="search_results")
      */
     public function searchResults($page, Request $request)
@@ -95,4 +95,6 @@ class FrontController extends AbstractController
             'query' => $query,
         ]);
     }
+
+
 }

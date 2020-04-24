@@ -51,7 +51,15 @@ class DisplayController extends AbstractController
     ['course'=>$repo->courseDetails($course)]);
     }
 
- 
+  /**
+     * @Route("/display/order-line/{course}", name="order_line")
+     */
+    public function displayOrderLine (CourseRepository $repo, $course){
+        
+
+      return $this->render ("/display/order_line.html.twig",
+  ['course'=>$repo->orderLine($course)]);
+  }
 
 
 
@@ -91,7 +99,7 @@ class DisplayController extends AbstractController
      * @Security("user.getId() == comment.getUserComment().getId()")
      */
 
-     /*  public function deleteComment(Comment $comment, Request $request)
+     /* public function deleteComment(Comment $comment, Request $request)
      {
        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
@@ -99,9 +107,9 @@ class DisplayController extends AbstractController
        $em->remove($comment);
        $em->flush();
 
-       return $this->redirectToRoute('display-course');
-    } */
-
+       return $this->redirectToRoute('display');
+    }
+ */
      }
 
 

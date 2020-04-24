@@ -16,7 +16,6 @@ class Comment
      */
     private $id;
 
-
     /**
      * @ORM\Column(type="text")
      */
@@ -28,12 +27,14 @@ class Comment
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comment")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $userComment;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $course;
 
@@ -41,8 +42,6 @@ class Comment
     {
         return $this->id;
     }
-
-   
 
     public function getDescription(): ?string
     {
@@ -61,14 +60,21 @@ class Comment
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(): self
     {
-        $this->date = $date;
+        if(isset($this->date2))
+        $this->date  = $this->date2;
+        else
+        $this->date = new \DateTime();
 
         return $this;
     }
 
-    
+
+    public function CreatedDateForFixtures($date): self{
+        $this->date2 = $date;
+        return $this;
+    }
 
     public function getUserComment(): ?User
     {
@@ -93,6 +99,4 @@ class Comment
 
         return $this;
     }
-
-
 }

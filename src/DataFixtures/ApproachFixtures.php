@@ -14,7 +14,7 @@ class ApproachFixtures extends Fixture
         for ($i = 0; $i<2; $i++)
         {
             $approach = new Approach;
-            $approach->setType("Approach".$i);
+            $approach->setApproach("Approach".$i);
             $approach->setDescription("Description".$i);
             $manager->persist($approach);
 

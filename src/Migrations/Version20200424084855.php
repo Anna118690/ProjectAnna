@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200408081902 extends AbstractMigration
+final class Version20200424084855 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,9 @@ final class Version20200408081902 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE course (id INT AUTO_INCREMENT NOT NULL, namecourse VARCHAR(50) NOT NULL, short_desc LONGTEXT NOT NULL, description LONGTEXT NOT NULL, price_actual_hour NUMERIC(5, 2) NOT NULL, price_actual_hour_sans_tva NUMERIC(5, 2) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE lesson_order_line ADD lesson_order_id INT NOT NULL');
+        $this->addSql('ALTER TABLE lesson_order_line ADD CONSTRAINT FK_91ECC730C5D82721 FOREIGN KEY (lesson_order_id) REFERENCES lesson_order (id)');
+        $this->addSql('CREATE INDEX IDX_91ECC730C5D82721 ON lesson_order_line (lesson_order_id)');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +32,8 @@ final class Version20200408081902 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE course');
+        $this->addSql('ALTER TABLE lesson_order_line DROP FOREIGN KEY FK_91ECC730C5D82721');
+        $this->addSql('DROP INDEX IDX_91ECC730C5D82721 ON lesson_order_line');
+        $this->addSql('ALTER TABLE lesson_order_line DROP lesson_order_id');
     }
 }

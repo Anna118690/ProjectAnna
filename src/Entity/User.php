@@ -5,12 +5,10 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -62,27 +60,24 @@ class User implements UserInterface
      */
     private $skype;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LessonOrder", mappedBy="user")
-     */
-    private $lessonOrder;
+  
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\LessonOrder", mappedBy="student")
      */
-    private $course;
+    private $lessonOrders;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="userComment")
      */
-    private $comment;
+    private $comments;
 
     public function __construct()
     {
-        $this->lessonOrder = new ArrayCollection();
-        $this->course = new ArrayCollection();
-        $this->comment = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -203,7 +198,7 @@ class User implements UserInterface
         return $this->photo;
     }
 
-    public function setPhoto ($photo): self
+    public function setPhoto( $photo): self
     {
         $this->photo = $photo;
 
@@ -222,19 +217,21 @@ class User implements UserInterface
         return $this;
     }
 
+
+
     /**
      * @return Collection|LessonOrder[]
      */
-    public function getLessonOrder(): Collection
+    public function getLessonOrders(): Collection
     {
-        return $this->lessonOrder;
+        return $this->lessonOrders;
     }
 
     public function addLessonOrder(LessonOrder $lessonOrder): self
     {
-        if (!$this->lessonOrder->contains($lessonOrder)) {
-            $this->lessonOrder[] = $lessonOrder;
-            $lessonOrder->setUser($this);
+        if (!$this->lessonOrders->contains($lessonOrder)) {
+            $this->lessonOrders[] = $lessonOrder;
+            $lessonOrder->setStudent($this);
         }
 
         return $this;
@@ -242,42 +239,11 @@ class User implements UserInterface
 
     public function removeLessonOrder(LessonOrder $lessonOrder): self
     {
-        if ($this->lessonOrder->contains($lessonOrder)) {
-            $this->lessonOrder->removeElement($lessonOrder);
+        if ($this->lessonOrders->contains($lessonOrder)) {
+            $this->lessonOrders->removeElement($lessonOrder);
             // set the owning side to null (unless already changed)
-            if ($lessonOrder->getUser() === $this) {
-                $lessonOrder->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Course[]
-     */
-    public function getCourse(): Collection
-    {
-        return $this->course;
-    }
-
-    public function addCourse(Course $course): self
-    {
-        if (!$this->course->contains($course)) {
-            $this->course[] = $course;
-            $course->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCourse(Course $course): self
-    {
-        if ($this->course->contains($course)) {
-            $this->course->removeElement($course);
-            // set the owning side to null (unless already changed)
-            if ($course->getUser() === $this) {
-                $course->setUser(null);
+            if ($lessonOrder->getStudent() === $this) {
+                $lessonOrder->setStudent(null);
             }
         }
 
@@ -287,15 +253,15 @@ class User implements UserInterface
     /**
      * @return Collection|Comment[]
      */
-    public function getComment(): Collection
+    public function getComments(): Collection
     {
-        return $this->comment;
+        return $this->comments;
     }
 
     public function addComment(Comment $comment): self
     {
-        if (!$this->comment->contains($comment)) {
-            $this->comment[] = $comment;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
             $comment->setUserComment($this);
         }
 
@@ -304,8 +270,8 @@ class User implements UserInterface
 
     public function removeComment(Comment $comment): self
     {
-        if ($this->comment->contains($comment)) {
-            $this->comment->removeElement($comment);
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
             if ($comment->getUserComment() === $this) {
                 $comment->setUserComment(null);
@@ -314,7 +280,6 @@ class User implements UserInterface
 
         return $this;
     }
-    
     public function __toString(){
       
         return $this->user;

@@ -44,9 +44,10 @@ class LessonOrder
     private $lessonOrderLines;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="lessonOrder")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="lessonOrders")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $student;
 
     public function __construct()
     {
@@ -106,8 +107,6 @@ class LessonOrder
         return $this;
     }
 
-  
-
     /**
      * @return Collection|LessonOrderLine[]
      */
@@ -139,14 +138,14 @@ class LessonOrder
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getStudent(): ?User
     {
-        return $this->user;
+        return $this->student;
     }
 
-    public function setUser(?User $user): self
+    public function setStudent(?User $student): self
     {
-        $this->user = $user;
+        $this->student = $student;
 
         return $this;
     }

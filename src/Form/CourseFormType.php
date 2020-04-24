@@ -37,7 +37,7 @@ class CourseFormType extends AbstractType
         ->add('approach', EntityType::class,[
             'class' => Approach::class, 
             'query_builder' => function(ApproachRepository $er){
-                return $er->createQueryBuilder('generic')->orderBy('generic.type');
+                return $er->createQueryBuilder('generic')->orderBy('generic.approach');
             },
             'choice_label' => function ($x)
             {

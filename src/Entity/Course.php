@@ -19,12 +19,12 @@ class Course
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=100)
      */
     private $namecourse;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
     private $shortDesc;
 
@@ -34,25 +34,19 @@ class Course
     private $description;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\Column(type="decimal", precision=6, scale=2)
      */
     private $priceActualHour;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
      */
     private $priceActualHourSansTva;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LessonOrderLine", mappedBy="course")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lessonOrderLines;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Approach", inversedBy="courses")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $approach;
+    private $coursePhoto;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Language", inversedBy="courses")
@@ -65,11 +59,16 @@ class Course
      * @ORM\JoinColumn(nullable=false)
      */
     private $level;
-     
+
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DataFile", mappedBy="course")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Approach", inversedBy="courses")
      */
-    private $dataFiles;
+    private $approach;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\LessonOrderLine", mappedBy="course")
+     */
+    private $lessonOrderLines;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="course")
@@ -77,22 +76,20 @@ class Course
     private $user;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $coursePhoto;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="course")
      */
     private $comments;
 
-   
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DataFile", mappedBy="course")
+     */
+    private $dataFiles;
 
     public function __construct()
     {
         $this->lessonOrderLines = new ArrayCollection();
-        $this->dataFiles = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->dataFiles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -160,6 +157,54 @@ class Course
         return $this;
     }
 
+    public function getCoursePhoto()
+    {
+        return $this->coursePhoto;
+    }
+
+    public function setCoursePhoto( $coursePhoto)
+    {
+        $this->coursePhoto = $coursePhoto;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?Language
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?Language $language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    public function getLevel(): ?Level
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?Level $level): self
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    public function getApproach(): ?Approach
+    {
+        return $this->approach;
+    }
+
+    public function setApproach(?Approach $approach): self
+    {
+        $this->approach = $approach;
+
+        return $this;
+    }
+
     /**
      * @return Collection|LessonOrderLine[]
      */
@@ -191,75 +236,6 @@ class Course
         return $this;
     }
 
-    public function getApproach(): ?Approach
-    {
-        return $this->approach;
-    }
-
-    public function setApproach(?Approach $approach): self
-    {
-        $this->approach = $approach;
-
-        return $this;
-    }
-
-    public function getLanguage(): ?Language
-    {
-        return $this->language;
-    }
-
-    public function setLanguage(?Language $language): self
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    public function getLevel(): ?Level
-    {
-        return $this->level;
-    }
-
-    public function setLevel(?Level $level): self
-    {
-        $this->level = $level;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|DataFile[]
-     */
-    public function getDataFiles(): Collection
-    {
-        return $this->dataFiles;
-    }
-
-    public function addDataFile(DataFile $dataFile): self
-    {
-        if (!$this->dataFiles->contains($dataFile)) {
-            $this->dataFiles[] = $dataFile;
-            $dataFile->setCourse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDataFile(DataFile $dataFile): self
-    {
-        if ($this->dataFiles->contains($dataFile)) {
-            $this->dataFiles->removeElement($dataFile);
-            // set the owning side to null (unless already changed)
-            if ($dataFile->getCourse() === $this) {
-                $dataFile->setCourse(null);
-            }
-        }
-
-        return $this;
-    }
-
-    
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -268,18 +244,6 @@ class Course
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function getCoursePhoto()
-    {
-        return $this->coursePhoto;
-    }
-
-    public function setCoursePhoto ($coursePhoto)
-    {
-        $this->coursePhoto = $coursePhoto;
 
         return $this;
     }
@@ -315,4 +279,34 @@ class Course
         return $this;
     }
 
+    /**
+     * @return Collection|DataFile[]
+     */
+    public function getDataFiles(): Collection
+    {
+        return $this->dataFiles;
+    }
+
+    public function addDataFile(DataFile $dataFile): self
+    {
+        if (!$this->dataFiles->contains($dataFile)) {
+            $this->dataFiles[] = $dataFile;
+            $dataFile->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDataFile(DataFile $dataFile): self
+    {
+        if ($this->dataFiles->contains($dataFile)) {
+            $this->dataFiles->removeElement($dataFile);
+            // set the owning side to null (unless already changed)
+            if ($dataFile->getCourse() === $this) {
+                $dataFile->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
 }

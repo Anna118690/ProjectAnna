@@ -14,7 +14,7 @@ class ApproachFormType extends AbstractType
         
         $builder
               
-                ->add ('type', ChoiceType::class, [
+                ->add ('approach', ChoiceType::class, [
                     'choices' => [
                         'Adult' => 'Adult',
                         'Child' => 'Child'

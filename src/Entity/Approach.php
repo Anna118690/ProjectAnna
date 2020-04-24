@@ -21,10 +21,10 @@ class Approach
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $type;
+    private $approach;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
 
@@ -43,14 +43,14 @@ class Approach
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getApproach(): ?string
     {
-        return $this->type;
+        return $this->approach;
     }
 
-    public function setType(string $type): self
+    public function setApproach(string $approach): self
     {
-        $this->type = $type;
+        $this->approach = $approach;
 
         return $this;
     }
@@ -98,7 +98,7 @@ class Approach
         return $this;
     }
     public function __toString(){
-        // to show the name of the Category in the select
+        // to show the name of the Course in the select
         return $this->type;
         // to show the id of the Category in the select
         // return $this->id;
