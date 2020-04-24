@@ -199,7 +199,7 @@ class AdminController extends AbstractController
             $entityManager->persist($course);
             $entityManager->flush();
             
-            return new Response("Course added");
+            return $this->redirectToRoute('courses');
         }
         else {
             return $this->render(

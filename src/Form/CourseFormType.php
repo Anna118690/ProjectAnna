@@ -41,7 +41,7 @@ class CourseFormType extends AbstractType
             },
             'choice_label' => function ($x)
             {
-                return strtoupper($x->getType());
+                return strtoupper($x->getApproach());
             }
         ])
 

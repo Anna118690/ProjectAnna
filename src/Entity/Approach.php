@@ -99,7 +99,7 @@ class Approach
     }
     public function __toString(){
         // to show the name of the Course in the select
-        return $this->type;
+        return $this->approach;
         // to show the id of the Category in the select
         // return $this->id;
     }
