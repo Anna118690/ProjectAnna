@@ -51,7 +51,6 @@ class CourseRepository extends ServiceEntityRepository
 
     
 
-    
     public function courseDetails($id)
 
     {
@@ -64,7 +63,6 @@ class CourseRepository extends ServiceEntityRepository
         ->getQuery()
         ->getOneOrNullResult();
     }
-
     private function prepareQuery(string $query): array
         {
            $terms = array_unique(explode(' ', $query));

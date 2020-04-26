@@ -62,6 +62,7 @@ class Course
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Approach", inversedBy="courses")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $approach;
 

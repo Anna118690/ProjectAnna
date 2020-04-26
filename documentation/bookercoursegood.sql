@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2020 at 09:44 PM
+-- Generation Time: Apr 24, 2020 at 09:52 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -75,6 +76,7 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `firstname`, `lastname`,
 (1, 'anna5@gmail.com', '[]', '$argon2id$v=19$m=65536,t=4,p=1$eVlZVk05N0VJNE4vaUFZag$+qJAlGFpnS0OsGk98yePGNce7/HZwsxMYmfe8OJ+7Us', 'Anna', 'Laskowska', '789456123', '7144a46332ac4925abe164310352bc1f.jpeg', 'anna1457'),
 (2, 'admin@gmail.com', '[\"ROLE_ADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$TTRpOEVudmtFYVMub1JqZA$m0wSyfeXnLl+9pPf3ZTuc3g7n4ZCK0ou1+ltRD9/7x4', 'admin', 'admin', '789845666', '339d1306c63d91fc2239e8c5d577abe1.jpeg', 'admin5'),
 (3, 'czech@gmail.com', '[]', '$argon2id$v=19$m=65536,t=4,p=1$RHgwZTl5L3lacENVUXExQQ$PJuRTh6CUBLoKTRqzRzaMSY7BfWHABDaAAE+GnTdtCU', 'Maria', 'Czech', '1234567', 'a88843fd0fc84449124bd188f87438db.jpeg', 'czech@gmail.com');
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

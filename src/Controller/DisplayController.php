@@ -51,6 +51,10 @@ class DisplayController extends AbstractController
     ['course'=>$repo->courseDetails($course)]);
     }
 
+
+
+
+    
   /**
      * @Route("/display/order-line/{course}", name="order_line")
      */

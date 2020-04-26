@@ -12,13 +12,13 @@
     </coordinates>
     <panel_attributes>_User_
 --
-firstname: string
-lastname : string
-telephone : string   null
+firstname: string 50
+lastname : string 50
+telephone : string 50   null
 photo: string           null
-email : string
-password : string
-skype : string          null
+v email : string
+v password : string 
+skype : string    50      null
 roles : JSON
 
 --
@@ -117,40 +117,40 @@ contient</panel_attributes>
     <coordinates>
       <x>1150</x>
       <y>190</y>
-      <w>320</w>
-      <h>240</h>
+      <w>350</w>
+      <h>250</h>
     </coordinates>
     <panel_attributes>_Course_
 --
-namecourse : string
-shortDesc : string
+namecourse : string 50
+shortDesc : string 255
 description : text
 priceActualHour : decimal
 priceActualHourSansTVA : decimal null
-
+coursePhoto : string null
 --
 approach (object Approach)
 language (object Language)
 level (object Level)
-dataFiles (array object DataFile)
-lessonOrderLines (array object LessonOrderLine)
-avatar (object AvatarCourse)
-teacher (object User)</panel_attributes>
+dataFiles (array object DataFile) null
+lessonOrderLines (array object LessonOrderLine) null
+teacher (object User) null
+comments (array object Comment) null</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>990</x>
-      <y>420</y>
-      <w>210</w>
-      <h>200</h>
+      <y>430</y>
+      <w>200</w>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=0..*
 m2=1
 contient</panel_attributes>
-    <additional_attributes>180.0;10.0;10.0;180.0</additional_attributes>
+    <additional_attributes>180.0;10.0;10.0;170.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -162,8 +162,8 @@ contient</panel_attributes>
     </coordinates>
     <panel_attributes>_Level_
 --
-level
-description null
+level string 50
+description text null
 --
 
 courses (array object course)</panel_attributes>
@@ -179,8 +179,8 @@ courses (array object course)</panel_attributes>
     </coordinates>
     <panel_attributes>_Language_
 --
-language
-description null
+language string 50
+description text null
 --
 
 courses (array object course)</panel_attributes>
@@ -190,30 +190,29 @@ courses (array object course)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1140</x>
-      <y>420</y>
+      <y>430</y>
       <w>100</w>
-      <h>200</h>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=0..*
 m2=1
 contient</panel_attributes>
-    <additional_attributes>60.0;10.0;10.0;180.0</additional_attributes>
+    <additional_attributes>60.0;10.0;10.0;170.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1310</x>
-      <y>600</y>
+      <x>1420</x>
+      <y>580</y>
       <w>150</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>_DataFile_
 --
-name 
-type                null
-description      null
-link
+name  string 50             
+description  text    null
+link string 255
 --
 
 course (object course)</panel_attributes>
@@ -223,31 +222,32 @@ course (object course)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1320</x>
-      <y>420</y>
-      <w>90</w>
-      <h>200</h>
+      <y>430</y>
+      <w>170</w>
+      <h>170</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
 m2=1.*
 contient</panel_attributes>
-    <additional_attributes>10.0;10.0;30.0;180.0</additional_attributes>
+    <additional_attributes>10.0;10.0;140.0;150.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>130</x>
-      <y>610</y>
+      <y>590</y>
       <w>200</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>_Commet_
 --
-topic
-description
+topic string 50 null
+description text
 date
 --
-commentMaker  (object User)</panel_attributes>
+userComment(object User)
+course(object Course)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -256,44 +256,13 @@ commentMaker  (object User)</panel_attributes>
       <x>180</x>
       <y>450</y>
       <w>60</w>
-      <h>180</h>
+      <h>160</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
 m2=1..*
 cree </panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1480</x>
-      <y>600</y>
-      <w>180</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>_AvatarCourse_
---
-
-link null
---
-
-courses (array object course)</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1440</x>
-      <y>420</y>
-      <w>100</w>
-      <h>200</h>
-    </coordinates>
-    <panel_attributes>lt=-
-m1=0..*
-m2=1
-contient</panel_attributes>
-    <additional_attributes>10.0;10.0;50.0;180.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -319,8 +288,8 @@ donne</panel_attributes>
     </coordinates>
     <panel_attributes>_Approach_
 --
-type
-description null
+approach string 50
+description text null
 --
 
 courses (array object course)</panel_attributes>
@@ -339,5 +308,19 @@ m1=0..*
 m2=1
 contient</panel_attributes>
     <additional_attributes>340.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>400</y>
+      <w>850</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..*
+concerne</panel_attributes>
+    <additional_attributes>830.0;10.0;10.0;190.0</additional_attributes>
   </element>
 </diagram>

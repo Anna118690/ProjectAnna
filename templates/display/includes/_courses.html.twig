@@ -1,23 +1,23 @@
 <div class="album py-5 bg-light">
-    <div class="container">
+  <div class="container">
 
-        <div class="row">
-            {% for course in courses %}
-            <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-              <div class="block-4 text-center border">
-                <figure class="block-4-image">
-                  <a href="#" ></a><img src="{{ asset ('filesCourse/' ~ course.coursePhoto ) }}" alt="{{course.namecourse}}" class="img-fluid"></a>
-                </figure>
-                <div class="block-4-text p-4">
-                  <h3><a href="{{path('display-course',{'course':course.id})}}">{{ course.namecourse}}</a></h3>
-                  <p class="mb-0">{{ course.shortDesc}}</p>
-                  <p class="text-primary font-weight-bold">{{ course.priceActualHour}}</p>
-                  <h6><a class="ml-1" href="{{path('display-course',{'course':course.id})}}">Comments </a> ({{course.comments.count}})</h6>
-                </div>
+      <div class="row">
+          {% for course in courses %}
+          <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+            <div class="block-4 text-center border">
+              <figure class="block-4-image">
+                <a href="#" ></a><img src="{{ asset ('filesCourse/' ~ course.coursePhoto ) }}" alt="{{course.namecourse}}" class="img-fluid"></a>
+              </figure>
+              <div class="block-4-text p-4">
+                <h3><a href="{{path('display-course',{'course':course.id})}}">{{ course.namecourse}}</a></h3>
+                <p class="mb-0">{{ course.shortDesc}}</p>
+                <p class="text-primary font-weight-bold">{{ course.priceActualHour}}</p>
+                <h6><a class="ml-1" href="{{path('display-course',{'course':course.id})}}">Comments </a> ({{course.comments.count}})</h6>
               </div>
             </div>
-            {% endfor %}
+          </div>
+          {% endfor %}
 
-        </div>
-    </div>
+      </div>
+  </div>
 </div>

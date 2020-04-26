@@ -65,7 +65,12 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\LessonOrder", mappedBy="student")
      */
-    private $lessonOrders;
+    private $lessonOrder;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="user")
+     */
+    private $course;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="userComment")
@@ -218,20 +223,19 @@ class User implements UserInterface
     }
 
 
-
-    /**
+/**
      * @return Collection|LessonOrder[]
      */
-    public function getLessonOrders(): Collection
+    public function getLessonOrder(): Collection
     {
-        return $this->lessonOrders;
+        return $this->lessonOrder;
     }
 
     public function addLessonOrder(LessonOrder $lessonOrder): self
     {
-        if (!$this->lessonOrders->contains($lessonOrder)) {
-            $this->lessonOrders[] = $lessonOrder;
-            $lessonOrder->setStudent($this);
+        if (!$this->lessonOrder->contains($lessonOrder)) {
+            $this->lessonOrder[] = $lessonOrder;
+            $lessonOrder->setUser($this);
         }
 
         return $this;
@@ -239,17 +243,47 @@ class User implements UserInterface
 
     public function removeLessonOrder(LessonOrder $lessonOrder): self
     {
-        if ($this->lessonOrders->contains($lessonOrder)) {
-            $this->lessonOrders->removeElement($lessonOrder);
+        if ($this->lessonOrder->contains($lessonOrder)) {
+            $this->lessonOrder->removeElement($lessonOrder);
             // set the owning side to null (unless already changed)
-            if ($lessonOrder->getStudent() === $this) {
-                $lessonOrder->setStudent(null);
+            if ($lessonOrder->getUser() === $this) {
+                $lessonOrder->setUser(null);
             }
         }
 
         return $this;
     }
 
+    /**
+     * @return Collection|Course[]
+     */
+    public function getCourse(): Collection
+    {
+        return $this->course;
+    }
+
+    public function addCourse(Course $course): self
+    {
+        if (!$this->course->contains($course)) {
+            $this->course[] = $course;
+            $course->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): self
+    {
+        if ($this->course->contains($course)) {
+            $this->course->removeElement($course);
+            // set the owning side to null (unless already changed)
+            if ($course->getUser() === $this) {
+                $course->setUser(null);
+            }
+        }
+
+        return $this;
+    }
     /**
      * @return Collection|Comment[]
      */
