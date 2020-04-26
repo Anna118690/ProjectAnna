@@ -5,10 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -60,13 +62,7 @@ class User implements UserInterface
      */
     private $skype;
 
-  
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LessonOrder", mappedBy="student")
-     */
-    private $lessonOrder;
-
+ 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="user")
      */
@@ -79,10 +75,9 @@ class User implements UserInterface
 
     public function __construct()
     {
+        $this->courses = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
-
-
 
     public function getId(): ?int
     {
@@ -222,38 +217,6 @@ class User implements UserInterface
         return $this;
     }
 
-
-/**
-     * @return Collection|LessonOrder[]
-     */
-    public function getLessonOrder(): Collection
-    {
-        return $this->lessonOrder;
-    }
-
-    public function addLessonOrder(LessonOrder $lessonOrder): self
-    {
-        if (!$this->lessonOrder->contains($lessonOrder)) {
-            $this->lessonOrder[] = $lessonOrder;
-            $lessonOrder->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLessonOrder(LessonOrder $lessonOrder): self
-    {
-        if ($this->lessonOrder->contains($lessonOrder)) {
-            $this->lessonOrder->removeElement($lessonOrder);
-            // set the owning side to null (unless already changed)
-            if ($lessonOrder->getUser() === $this) {
-                $lessonOrder->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|Course[]
      */
@@ -284,6 +247,7 @@ class User implements UserInterface
 
         return $this;
     }
+
     /**
      * @return Collection|Comment[]
      */
@@ -314,6 +278,7 @@ class User implements UserInterface
 
         return $this;
     }
+
     public function __toString(){
       
         return $this->user;

@@ -1,0 +1,85 @@
+{% extends 'admin/base.html.twig' %}
+{% block mainadmin %}
+<style>
+
+
+
+button {
+	border-radius: 20px;
+  background-color: #5a50e5;
+    border-color: #4f45e3;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+
+
+form {
+	background-color: #FFFFFF;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+  color: #8c92a0;
+	height: 100%;
+	text-align: center;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding:10px;
+  font-size:16px;
+
+}
+
+input {
+	background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	width: 100%;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #5a50e5;
+    border-color: #4f45e3;
+}
+.btn:focus, .btn:hover {
+    text-decoration: none;
+}
+
+
+  
+</style> 
+
+<h2>DataFiles Upload <h2>
+    <div class="site-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+       
+            </div>
+            <div class="col-md-7">
+        
+    
+              {{ form_start (uploadCourseForm)  }}
+            
+                  
+              {{ form_row(uploadCourseForm.course) }}
+              {{ form_row(uploadCourseForm.name) }}
+              {{ form_row(uploadCourseForm.description)  }}
+              {{ form_row(uploadCourseForm.link)}}
+              
+              <button class="btn" type="submit"> Upload </button> 
+              {{ form_end(uploadCourseForm)}}
+      
+       
+        </div>
+    
+      </div>
+    </div>
+    </div>
+
+
+{% endblock %}

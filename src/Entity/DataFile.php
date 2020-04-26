@@ -65,12 +65,12 @@ class DataFile
         return $this;
     }
 
-    public function getLink(): ?string
+    public function getLink()
     {
         return $this->link;
     }
 
-    public function setLink(string $link): self
+    public function setLink( $link)
     {
         $this->link = $link;
 
@@ -87,5 +87,12 @@ class DataFile
         $this->course = $course;
 
         return $this;
+    }
+
+    public function __toString(){
+        // to show the name of the Course in the select
+        return $this->name;
+        // to show the id of the Category in the select
+        // return $this->id;
     }
 }

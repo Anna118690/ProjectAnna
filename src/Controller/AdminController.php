@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Course;
+use App\Entity\DataFile;
 use App\Form\CourseFormType;
+use App\Form\DataFileFormType;
 use App\Form\RegistrationFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -147,7 +149,7 @@ class AdminController extends AbstractController
 
         $rep = $entityManager->getRepository(User::class);
         
-        $users = $rep->findAll();
+        $users = $rep->findAll([], ['lastname'=>'ASC']);
 
         return $this->render('admin/users.html.twig',['users'=>$users]);
     }
@@ -271,4 +273,50 @@ class AdminController extends AbstractController
             ['updatedCourseForm' => $updateCourse->createView()]
         );
     }
+
+
+    
+
+     //UPDATE NOWY INNY KURS
+
+       /**
+     * @Route("/su/uploaddatafile", name="uploaddatafile")
+     */
+    public function uploadDatafile(Request $req)
+    {
+
+        
+        $dataFile = new DataFile();
+        $updateData = $this->createForm( DataFileFormType::class, $dataFile);
+        
+        $updateData->handleRequest($req);
+        
+      
+         if ($updateData->isSubmitted() && $updateData->isValid())
+        { 
+            
+            $entityManager = $this->getDoctrine()->getManager();
+           
+            $file= $dataFile->getLink();
+            $fileNameServer = md5(uniqid()) . "." . $file->guessExtension();
+            $file ->move ('filesData', $fileNameServer);  
+            $dataFile ->setLink( $fileNameServer);
+
+            $entityManager =$this->getDoctrine()->getManager();
+            $entityManager->persist($dataFile);
+
+    
+            $entityManager->flush();
+            return $this->redirectToRoute('courses');
+           
+        }
+
+        return $this->render(
+            '/admin/upload.html.twig',
+            ['uploadCourseForm' => $updateData->createView()]
+        );
+    }
+
+
+
 }
