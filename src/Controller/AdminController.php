@@ -138,6 +138,21 @@ class AdminController extends AbstractController
         
     }
 
+     //POKAZ WSZYSTKIE Moje KURSY
+
+    /**
+     * @Route("/mycourses", name="mycourses")
+     */
+    public function mycourses()
+    {  
+        $entityManager = $this->getDoctrine()->getManager();    
+        $rep = $entityManager->getRepository(Course::class);
+        $courses = $rep->findBy(array('user'=>$this->getuser()->getId())); 
+
+        return $this->render('admin/courses.html.twig',['courses'=> $courses,  'currentUser'=>$this->getUser()]);
+        
+    }
+
     //POKAZ WSZYSTKICH UZYTKOWNIKOW
 
     /**

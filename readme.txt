@@ -1,12 +1,19 @@
-1. installation :
-composer require knplabs/knp-paginator-bundle
-2. create a new database 'bookercourse'
-3. import the file called 'bookercourse.sql' to the database
-4. eventually after that you can  use fixtures --append
+1. composer install
+
+2. installation : composer require knplabs/knp-paginator-bundle
+
+3. create a new database 'bookercourse': php bin/console doctrine:database:create
+   php bin/console make:migration
+   php bin/console doctrine:migrations:migrate
+   (eventually remove all migrations files before the last step)
+
+4. import the file with data called 'bookercourse.sql' to the database, before dischecked "Enable foreign key checks"
+
+5. eventually after that you can  use fixtures --append
 
 
 Password : 123456
-Admin : annaadmin@gmail.com
+Admin : admin@gmail.com
 Regular user : aaa@gmail.com
 
 1.	Registration – ok

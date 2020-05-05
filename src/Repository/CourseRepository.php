@@ -3,9 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Course;
+use App\Data\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  * @method Course|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,6 +22,82 @@ class CourseRepository extends ServiceEntityRepository
         parent::__construct($registry, Course::class);
         $this->paginator = $paginator;
     }
+
+    
+        /**
+     * Recupere courses
+     * @return PaginationInterface
+     */
+public function findSearch(SearchData $search) : PaginationInterface
+{
+    $query= $this
+    ->createQueryBuilder('c') // course
+    ->select('l', 'c')
+    ->select('v', 'c')
+    ->select('l', 'c')
+    ->join('c.language', 'l')
+    ->join('c.approach', 'a')
+    ->join('c.level', 'v');
+
+    if (!empty($search->q)) {
+        $query = $query
+        ->andWhere('c.namecourse LIKE :q')
+        ->setParameter('q', "%{$search->q}%");
+
+    }
+    if (!empty($search->min)) {
+        $query = $query
+        ->andWhere('c.priceActualHour >= :min')
+        ->setParameter('min', $search->min);
+
+    }
+
+    if (!empty($search->max)) {
+        $query = $query
+        ->andWhere('c.priceActualHour <= :max')
+        ->setParameter('max', $search->max);
+
+    }
+
+
+     if (!empty ($search->languages))
+     {
+         $query = $query
+         ->andWhere('l.id IN (:languages)')
+         ->setParameter('languages', $search->languages);
+     }
+
+     if (!empty ($search->levels))
+     {
+         $query = $query
+         ->andWhere('v.id IN (:levels)')
+         ->setParameter('levels', $search->levels);
+     }
+
+     if (!empty ($search->approachs))
+     {
+         $query = $query
+         ->andWhere('a.id IN (:approachs)')
+         ->setParameter('approachs', $search->approachs);
+     }
+
+
+
+
+
+    $query = $query-> getQuery();
+    return $this->paginator->paginate(
+        $query, 
+       $search->page, 
+        6);
+
+    }
+
+
+
+
+
+
 
     public function findAllPaginated($page)
     {
@@ -70,6 +148,8 @@ class CourseRepository extends ServiceEntityRepository
                return 2 <= mb_strlen($term);
            });
         }
+
+    
 
     
     // /**

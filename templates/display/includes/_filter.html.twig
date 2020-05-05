@@ -1,0 +1,37 @@
+
+{{ form_start (form, {atrr: {class: 'filter'}} ) }}
+
+{{ form_row(form.q) }}
+
+<h3 class="mb-3 h6 text-uppercase text-black d-block">Languages</h3>
+
+{{ form_row(form.languages) }}
+
+<h3 class="mb-3 h6 text-uppercase text-black d-block">Level</h3>
+
+{{ form_row(form.levels) }}
+
+<h3 class="mb-3 h6 text-uppercase text-black d-block">Approach</h3>
+
+{{ form_row(form.approachs) }}
+
+<h3 class="mb-3 h6 text-uppercase text-black d-block">Prix</h3>
+
+<div class="row">
+<div class="col-md-6">
+    {{ form_row(form.min) }}
+
+</div>
+<div class="col-md-6">
+    {{ form_row(form.max) }}
+
+</div>
+
+
+</div>
+<div id="price-slider"></div>
+
+
+<button type="submit" class="btn btn-primary w-100">Filtrer</button>
+
+{{ form_end(form) }}

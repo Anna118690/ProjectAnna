@@ -2,42 +2,39 @@
 
 namespace App\Controller;
 
-use App\Entity\Level;
+
 use App\Entity\Course;
 use App\Entity\Comment;
-use App\Entity\Approach;
-use App\Entity\Language;
+use App\Data\SearchData;
+use App\Form\SearchForm;
 use App\Repository\CourseRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DisplayController extends AbstractController
 {
 
     /**
-     * @Route("/display{page}", defaults={"page" : "1"}, name="display")
+     * @Route("/display", defaults={"page" : "1"}, name="display")
      */
-    public function display($page)
+    public function display(Request $request)
     {
-        
-            $entityManager = $this->getDoctrine()->getManager();
-                
-            $rep2= $entityManager->getRepository(Level::class);
-            $rep3= $entityManager->getRepository(Language::class);
-            $rep4= $entityManager->getRepository(Approach::class);
-
-            $courses = $this->getDoctrine()->getRepository(Course::class)->findAllPaginated($page);
+      $data = new SearchData();
+      $data->page = $request->get('page', 1);
+      $form = $this->createForm(SearchForm::class, $data);
+      $form->handleRequest($request);
+      $courses = $this->getDoctrine()->getRepository(Course::class)->findSearch($data);
             
-           
-            $levels = $rep2->findAll();
-            $languages = $rep3->findAll();
-            $approachs = $rep4->findAll();
-
-            $vars = ['courses' => $courses, 'levels' => $levels, 'languages'=>$languages, 'approachs'=>$approachs];
-            return $this->render("display/courses.html.twig",$vars);
+      
+      return $this->render("display/courses.html.twig", [
+        'courses' => $courses,
+        'form' => $form->CreateView()
+       
+    ]);
     }
+
 
   
 

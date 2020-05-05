@@ -17,63 +17,22 @@
         <div class="row mb-5">
           <div class="col-md-9 order-2">
 
-            <div class="row">
-              <div class="col-md-12 mb-5">
-                <div class="float-md-left mb-4"><h2 class="text-black h5">Book your course</h2></div>
-                <div class="d-flex">
-                  <div class="dropdown mr-1 ml-md-auto">
-                    <form id="form-sorting" action="" method="GET">
-                      <label for="language_language">Choose language:</label> 
-                      <select name="courseId">
-                        <div id="selectLanguage" class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                          {% for language in languages %}
-                           <option value = 'language'>{{ language.language }} </option>
-                          {% endfor %}
-                        </select>
-                        {% if query is defined %}
-                        <input type="hidden" name="query" value="{{query}}">
-                        {% endif %}
-                        </form>
-  
-                  </div>
-                </div>
-              </div>
-            </div>
+            
             <div class="row mb-5">
               {{ include('display/includes/_courses.html.twig', {'courses' : courses}) }}
-            </div>       
+            </div> 
           </div>
 
-          <div class="col-md-3 order-1 mb-5 mb-md-0">
+           <div class="col-md-3 order-1 mb-5 mb-md-0">
             <div class="border p-4 rounded mb-4">
-              <h3 class="mb-3 h6 text-uppercase text-black d-block">Language</h3>
-              <ul class="list-unstyled mb-0">
-                {% for language in languages %}
-                <li class="mb-1"><a href="#" class="d-flex"><span>{{ language.language }}</span> <span class="text-black ml-auto">({{language.courses.count}})</span></a></li>
-                {% endfor %}
-              </ul>
+            {{ include('display/includes/_filter.html.twig' )}}
+          </div>
+          <div class="mt-4" js-filter-pagination>
+            {{ knp_pagination_render(courses) }}
             </div>
 
-            <div class="border p-4 rounded mb-4">
-                <h3 class="mb-3 h6 text-uppercase text-black d-block">Level</h3>
-                <ul class="list-unstyled mb-0">
-                  {% for level in levels %}
-                  <li class="mb-1"><a href="#" class="d-flex"><span>{{ level.level }}</span> <span class="text-black ml-auto">({{level.courses.count}})</span></a></li>
-                  {% endfor %}
-                </ul>
-              </div>
-
-              <div class="border p-4 rounded mb-4">
-                <h3 class="mb-3 h6 text-uppercase text-black d-block">Approach</h3>
-                <ul class="list-unstyled mb-0">
-                  {% for approach in approachs %}
-                  <li class="mb-1"><a href="#" class="d-flex"><span>{{ approach.approach }}</span> <span class="text-black ml-auto">({{approach.courses.count}})</span></a></li>
-                  {% endfor %}
-                </ul>
-              </div>
-              {{ knp_pagination_render(courses)}}
-          </div>
         </div>
+        
     
       </div>
     </div>
