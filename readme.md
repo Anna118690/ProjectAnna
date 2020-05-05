@@ -1,6 +1,6 @@
 1. composer install
 
-2. installation : composer require knplabs/knp-paginator-bundle
+2. composer require knplabs/knp-paginator-bundle
 
 3. create a new database 'bookercourse': php bin/console doctrine:database:create
    php bin/console make:migration
@@ -11,12 +11,14 @@
 
 5. eventually after that you can  use fixtures --append
 
+6. terminal command to start: symfony serve
+
 
 Password : 123456
 Admin : admin@gmail.com
-Regular user : aaa@gmail.com
+Regular user : anna5@gmail.com
 
-1.	Registration – ok
+1.	Registration a new user – ok
 2.	Login OK
 3.	Logout ok
 4.	User profile afficher – ok
@@ -24,15 +26,18 @@ Regular user : aaa@gmail.com
 6.	Delete user account – ok
 7.	Admin upload a new course – ok
 8.	Admin show all users + delete user -OK
-9.	Admin show all course + delete course ok
+9.	Admin show all course + delete course ok,  + update course ok, + showMyCourses - ok
 10.	Add a comment – ok
 11.	Show all comments - ok
 12.	Search bar – OK
-13.	Afficher tout les courses disponible – OK
-14.	Selecte une course avec les details – ok
+13.	Listing of all courses – OK
+14.	Selecting a course with details – ok
+15.     Upload DataFiles - ok
+16.     Filters - ok
+
 
 TO DO :
-15.	Les filtrers
+
 16.	Buy course
 
 
