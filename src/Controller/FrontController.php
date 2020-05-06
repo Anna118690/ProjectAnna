@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Course;
+use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,9 +70,33 @@ class FrontController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact()
+    public function contact(Request $request, \Swift_Mailer $mailer)
     {
-        return $this->render('front/contact.html.twig');
+        $form=$this->createForm(ContactType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $contact= $form->getData();
+
+            //tu wysyslam email
+            //dd($contact);
+            $message = (new \Swift_Message('New contact'))
+            ->setFrom($contact['email'])
+            ->setTo('anna.laskowska@hotmail.com')
+            ->setBody($this->renderView(
+                'emails/contact.html.twig', compact('contact')
+
+
+            ),
+            'text/html'
+        );
+        $mailer-> send($message);
+        $this->addFlash('message', 'Message has been sent');
+        return $this->redirectToRoute('index');
+        
+        }
+        return $this->render('front/contact.html.twig', [
+            'contactForm'=> $form->createView()
+        ]);
     }
 
       /**
