@@ -21,70 +21,71 @@
         </div>
 
         <div class="col-md-6">
-          <h2 class="text-black">{{ course.namecourse}}</h2>
-          <p>{{ course.shortDesc}}</p>
-          <p class="mb-4">{{ course.description}}</p>
-          <p class="mb-4">Price for 60 min:</p>
-          <p><strong class="text-primary h4">{{ course.priceActualHour}}</strong></p>
-          <p class="mb-4">Teacher:</p>
-          <p><strong class="text-primary h4">{{ course.user.firstname}} {{ course.user.lastname}}</strong></p>
-
-
-          <div class="mb-5">
-            <div class="input-group mb-3" style="max-width: 120px;">
-            <!-- <div class="input-group-prepend">
-              <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+            <h2 class="text-black">{{ course.namecourse}}</h2>
+            <p>{{ course.shortDesc}}</p>
+            <p class="mb-4">{{ course.description}}</p>
+            <p class="mb-4">Price for 60 min:</p>
+            <p><strong class="text-primary h4">{{ course.priceActualHour}}</strong></p>
+            <p class="mb-4">Teacher:</p>
+            <p><strong class="text-primary h4">{{ course.user.firstname}} {{ course.user.lastname}}</strong></p>
+   
+            <div class="site-blocks-table">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="product-thumbnail">Date</th>
+                    <th class="product-name">Time</th>
+                    <th class="product-price">Book this course</th>       
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for reservation in course.reservations %}
+                    <tr>
+                      <td class="product-name"><h2 class="h5 text-black">{{ reservation.date|date("m/d/Y")}}</h2> </td>
+                      <td class="product-name"><h2 class="h5 text-black"></h2>{{ reservation.time|date('H:i:s')}}</td> 
+                      <td><a href="{{ path ( 'display-summary', {'reservation': reservation.id} ) }}" class="buy-now btn btn-sm btn-primary">I book</a></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
-            <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-            <div class="input-group-append">
-              <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-            </div> -->
-          </div>
-
-          </div>
-          <p><a href="{{path('display-ordercourse',{'course':course.id})}}" class="buy-now btn btn-sm btn-primary">Book this course</a></p>
-          </div>
-        </div>
-        <hr>
-
-    <div class="row m-2">
-    <a id="course_comments"></a>
-
-   {% for comment in course.comments %}
-
-    <ul class="list-unstyled text-left">
-        <li class="media">
-            <img class="mr-3" style="width: 100px; height:100px;" src="{{ asset('/files/' ~ comment.userComment.photo)}}" alt="Generic placeholder image">
-            <div class="media-body">
-                <h5 class="mt-0 mb-1"><b>{{comment.userComment.firstname}} {{comment.userComment.lastname}}</b> <small class="text-muted">added a comment <small><b>{{comment.date | ago}}</b></small></small></h5>
-                {{comment.description}}
-
-                {% if app.user and app.user.id == comment.userComment.id %}
-                <a href="#">delete comment</a>
-                {% endif %}
-            </div>
-        </li>
-    </ul>
-    <hr>
-
-    {% endfor %}
-
         
-        <div class="col-md-12">
-          <form method="POST" action="{{path('new_comment', {'course':course.id})}}">
-              <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Add a comment</label>
-                  <textarea name="comment" required class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Add</button>
-    
-          </form>
+        </div>
+       
+      </div>
+<hr>
+      <div class="row m-2">
+          <a id="course_comments"></a>
+
+        {% for comment in course.comments %}
+
+          <ul class="list-unstyled text-left">
+              <li class="media">
+                  <img class="mr-3" style="width: 100px; height:100px;" src="{{ asset('/files/' ~ comment.userComment.photo)}}" alt="Generic placeholder image">
+                  <div class="media-body">
+                      <h5 class="mt-0 mb-1"><b>{{comment.userComment.firstname}} {{comment.userComment.lastname}}</b> <small class="text-muted">added a comment <small><b>{{comment.date | ago}}</b></small></small></h5>
+                      {{comment.description}}
+
+                  </div>
+              </li>
+          </ul>
+          <hr>
+
+      {% endfor %}
+
+          <div class="col-md-12">
+            <form method="POST" action="{{path('new_comment', {'course':course.id})}}">
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Add a comment</label>
+                    <textarea name="comment" required class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+      
+            </form>
+        </div>
       </div>
     </div>
-  </div>
-
-
-  
 </div>
 
 

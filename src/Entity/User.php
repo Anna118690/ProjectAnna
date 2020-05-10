@@ -73,10 +73,22 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ordercourse", mappedBy="student")
+     */
+    private $ordercourses;
+
+  
+
+   
+
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+        $this->ordercourses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -284,4 +296,39 @@ class User implements UserInterface
         return $this->user;
 
     }
+
+    /**
+     * @return Collection|Ordercourse[]
+     */
+    public function getOrdercourses(): Collection
+    {
+        return $this->ordercourses;
+    }
+
+    public function addOrdercourse(Ordercourse $ordercourse): self
+    {
+        if (!$this->ordercourses->contains($ordercourse)) {
+            $this->ordercourses[] = $ordercourse;
+            $ordercourse->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdercourse(Ordercourse $ordercourse): self
+    {
+        if ($this->ordercourses->contains($ordercourse)) {
+            $this->ordercourses->removeElement($ordercourse);
+            // set the owning side to null (unless already changed)
+            if ($ordercourse->getStudent() === $this) {
+                $ordercourse->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+   
+
+    
 }

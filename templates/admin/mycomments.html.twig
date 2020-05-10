@@ -1,0 +1,51 @@
+{% extends 'admin/base.html.twig' %}
+{% block mainadmin %}
+
+<h2>My comments </h2>
+<div class="table-responsive">
+        
+    <table class="table table-striped table-sm">
+    <thead>
+        <tr>
+        <th>#</th>
+      
+        <th>Created at:</th>
+        <th>Description</th>
+        <th>Course</th>
+       
+      
+        <th>Delete</th>
+        
+        </tr>
+    </thead>
+   
+    <tbody>
+        {% for comment in comments %}
+        <tr>
+        <td>{{comment.id}}</td>
+        <td>{{ comment.date|date("m/d/Y H:i:s")}}</td>
+        <td>{{ comment.description}}</td>
+        <td>{{ comment.course.namecourse}}</td>
+    
+        
+        <td><a onclick="return confirm('Are you sure?');" href="{{path ('delete_my_comment', {'id': comment.id })}}">Delete </a></small></td>
+            
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+
+<script>
+    function delete_course(e)
+    {
+    confirm('Are you sure?');
+    }
+    function update_course(e)
+    {
+    confirm('Are you sure?');
+    }
+</script>
+
+{% endblock %}
+

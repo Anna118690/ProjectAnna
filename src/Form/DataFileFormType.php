@@ -28,6 +28,6 @@ class DataFileFormType extends AbstractType
         ]) 
         ->add('name', TextType::class)
         ->add('description', TextType::class)
-        ->add('link', FileType::class, array ('label'=>"Upload DataFile"));
+        ->add('link', FileType::class, array ('label'=>"Upload DataFile as PDF"));
     }
 }

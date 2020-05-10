@@ -66,10 +66,7 @@ class Course
      */
     private $approach;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LessonOrderLine", mappedBy="course")
-     */
-    private $lessonOrderLines;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="course")
@@ -86,11 +83,17 @@ class Course
      */
     private $dataFiles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="course")
+     */
+    private $reservations;
+
     public function __construct()
     {
         $this->lessonOrderLines = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->dataFiles = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -206,36 +209,7 @@ class Course
         return $this;
     }
 
-    /**
-     * @return Collection|LessonOrderLine[]
-     */
-    public function getLessonOrderLines(): Collection
-    {
-        return $this->lessonOrderLines;
-    }
-
-    public function addLessonOrderLine(LessonOrderLine $lessonOrderLine): self
-    {
-        if (!$this->lessonOrderLines->contains($lessonOrderLine)) {
-            $this->lessonOrderLines[] = $lessonOrderLine;
-            $lessonOrderLine->setCourse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLessonOrderLine(LessonOrderLine $lessonOrderLine): self
-    {
-        if ($this->lessonOrderLines->contains($lessonOrderLine)) {
-            $this->lessonOrderLines->removeElement($lessonOrderLine);
-            // set the owning side to null (unless already changed)
-            if ($lessonOrderLine->getCourse() === $this) {
-                $lessonOrderLine->setCourse(null);
-            }
-        }
-
-        return $this;
-    }
+  
 
     public function getUser(): ?User
     {
@@ -318,4 +292,37 @@ class Course
         // to show the id of the Category in the select
         // return $this->id;
     }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            // set the owning side to null (unless already changed)
+            if ($reservation->getCourse() === $this) {
+                $reservation->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

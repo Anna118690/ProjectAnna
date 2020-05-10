@@ -7,11 +7,15 @@ use App\Entity\Course;
 use App\Entity\Comment;
 use App\Data\SearchData;
 use App\Form\SearchForm;
+use App\Entity\Ordercourse;
+use App\Entity\Reservation;
 use App\Repository\CourseRepository;
+use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class DisplayController extends AbstractController
 {
@@ -45,35 +49,68 @@ class DisplayController extends AbstractController
         
 
         return $this->render ("/display/course_details.html.twig",
-    ['course'=>$repo->courseDetails($course)]);
+    ['course'=> $repo -> courseDetails($course) ]);
     }
 
 
      /**
-     * @Route("/display/ordercourse/{course}", name="display-ordercourse")
+     * @Route("/display/summary/{reservation}", name="display-summary")
      */
-    public function displayOrdercourse (CourseRepository $repo, $course){
-        
+    public function displaySummary (ReservationRepository $repo, $reservation){
+      $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
-      return $this->render ("/display/order_line.html.twig",
-  ['course'=>$repo->courseDetails($course)]);
+      return $this->render ("/display/summary.html.twig",
+      ['reservation' => $repo -> reservationDetails($reservation) ]);
   }
 
+    /**
+     * @Route("/display/ordercourse/{reservation}", name="display-ordercourse")
+     */
+    public function displayOrdercourse (ReservationRepository $repo, Reservation $reservation){
+      $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
+      $ordercourse = new Ordercourse();
+      $ordercourse->setStudent($this->getUser());
+      $ordercourse->setReservation($reservation);
+      $ordercourse->setCreatedat(new \DateTime());
+      $ordercourse->setTotal($reservation->getCourse()->getPriceActualHour());
+      
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($ordercourse);
+      $em->flush();
 
+      return $this->render ("/display/payment.html.twig",
+      ['reservation' => $repo -> reservationDetails($reservation), 'ordercourse' => $ordercourse ]);
+     
+  }
 
-    
   /**
-     * @Route("/display/order-line/{course}", name="order_line")
-     */
-    public function displayOrderLine (CourseRepository $repo, $course){
-        
+   * @Route("/display/myordered", name="display-myordered")
+   */
 
-      return $this->render ("/display/order_line.html.twig",
-  ['course'=>$repo->orderLine($course)]);
-  }
+   public function displayMyordered() {
+
+    $entityManager = $this->getDoctrine()->getManager();    
+    $rep = $entityManager->getRepository(Ordercourse::class);
+    $ordercourses = $rep->findBy(array('student'=>$this->getuser()->getId())); 
+
+    return $this->render('admin/myordered.html.twig',['ordercourses' => $ordercourses,  'student'=>$this->getUser()]);
+   }
 
 
+
+/**
+   * @Route("/display/mycomments", name="display-mycomments")
+   */
+
+  public function displayMycomments() {
+
+    $entityManager = $this->getDoctrine()->getManager();    
+    $rep = $entityManager->getRepository(Comment::class);
+    $comments = $rep->findBy(array('userComment'=>$this->getuser()->getId())); 
+
+    return $this->render('admin/mycomments.html.twig',['comments' => $comments,  'userComment'=>$this->getUser()]);
+   }
 
 
     /**
@@ -103,15 +140,12 @@ class DisplayController extends AbstractController
     }
     
 
-
-
-
     /**
      * @Route("/display/delete-comment/{comment}", name="delete_comment")
      * @Security("user.getId() == comment.getUserComment().getId()")
      */
 
- /*      public function deleteComment(Comment $comment, Request $request)
+       public function deleteComment(Comment $comment, Request $request)
      {
        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
@@ -119,11 +153,26 @@ class DisplayController extends AbstractController
        $em->remove($comment);
        $em->flush();
 
-       return $this->redirectToRoute('display');
-    }
+       return $this->redirect($request->headers->get('display-course'));
+      } 
+
+
+    /**
+     * @Route("/display/delete-my-comment/{id}", name="delete_my_comment")
      */
- 
-     }
+    public function deleteMyComment($id)
+    {
+      $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+        $em = $this->getDoctrine()->getManager();
+        $rep = $em->getRepository(Comment::class);
+        $Comment=$rep->find($id);
+        $em->remove($Comment);
+        $em->flush();
+        return $this->redirectToRoute('display-mycomments'); 
+    }
+
+  
+  }
 
 
 

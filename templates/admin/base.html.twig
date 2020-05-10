@@ -33,6 +33,12 @@
                                 Courses
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('mycourses')}}">
+                                <span data-feather="file"></span>
+                                Show me my courses where I teach
+                            </a>
+                        </li>
 
 
                         <li class="nav-item">
@@ -47,6 +53,19 @@
                                 Upload a DataFiles for a Course
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('datafile')}}">
+                                <span data-feather="shopping-cart"></span>
+                               Display DataFiles 
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('reservation')}}">
+                                <span data-feather="shopping-cart"></span>
+                                Create a new reservation for a course
+                            </a>
+                        </li>
 
                         
                         <li class="nav-item">
@@ -56,6 +75,19 @@
                             </a>
                         </li>
                         {% endif %}
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('display-myordered')}}">
+                                <span data-feather="users"></span>
+                                My ordered courses
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('display-mycomments')}}">
+                                <span data-feather="users"></span>
+                                My comments
+                            </a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('update')}}">
@@ -69,12 +101,7 @@
                                 Delete Account
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('mycourses')}}">
-                                <span data-feather="file"></span>
-                                Show me my courses
-                            </a>
-                        </li>
+                        
                     </ul>
                     
                 </div>

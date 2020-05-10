@@ -19,6 +19,21 @@ class DataFileRepository extends ServiceEntityRepository
         parent::__construct($registry, DataFile::class);
     }
 
+
+    public function dataFileDetails($id)
+
+    {
+        return $this->createQueryBuilder('d')
+     
+        ->leftJoin('d.course', 'c')
+        ->addSelect('d', 'c')
+        ->where('d.id = :id')
+        ->setParameter('id', $id)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
+
+
     // /**
     //  * @return DataFile[] Returns an array of DataFile objects
     //  */

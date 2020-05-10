@@ -5,9 +5,13 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Course;
 use App\Entity\DataFile;
+use App\Entity\Reservation;
 use App\Form\CourseFormType;
+use App\Form\ReservationType;
 use App\Form\DataFileFormType;
 use App\Form\RegistrationFormType;
+use App\Repository\CourseRepository;
+use App\Repository\DataFileRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -292,7 +296,7 @@ class AdminController extends AbstractController
 
     
 
-     //UPDATE NOWY INNY KURS
+     //Dodaj pliki
 
        /**
      * @Route("/su/uploaddatafile", name="uploaddatafile")
@@ -302,12 +306,12 @@ class AdminController extends AbstractController
 
         
         $dataFile = new DataFile();
-        $updateData = $this->createForm( DataFileFormType::class, $dataFile);
+        $uploadData = $this->createForm( DataFileFormType::class, $dataFile);
         
-        $updateData->handleRequest($req);
+        $uploadData->handleRequest($req);
         
       
-         if ($updateData->isSubmitted() && $updateData->isValid())
+         if ($uploadData->isSubmitted() && $uploadData->isValid())
         { 
             
             $entityManager = $this->getDoctrine()->getManager();
@@ -328,8 +332,68 @@ class AdminController extends AbstractController
 
         return $this->render(
             '/admin/upload.html.twig',
-            ['uploadCourseForm' => $updateData->createView()]
+            ['uploadCourseForm' => $uploadData->createView()]
         );
+    }
+
+    //Pokaz pliki DataFiles
+
+    /**
+     * @Route("/su/datafile", name="datafile")
+     */
+
+     public function dataFile (DataFileRepository $repo) {
+
+        $entityManager = $this->getDoctrine()->getManager();    
+        $repo = $entityManager->getRepository(DataFile::class);
+        $dataFiles = $repo->findAll(); 
+        
+        return $this->render ("/admin/datafile.html.twig",
+        ['dataFiles'=> $dataFiles]);
+     }
+
+
+       /**
+     * @Route("/display/coursedata/{course}", name="display-coursedata")
+     */
+    public function displayCourseData (CourseRepository $repo, $course){
+        
+
+        return $this->render ("/admin/coursedatafile.html.twig",
+    ['course'=> $repo -> courseDetails($course) ]);
+    }
+
+
+   /**
+     * @Route("/su/reservation", name="reservation")
+     */
+     public function reservation(Request $request)
+    {
+        $reservation = new Reservation();
+        $form = $this->createForm(
+            ReservationType::class,
+            $reservation,
+            [
+                'action' => $this->generateUrl('reservation'),
+                'method' => 'POST'
+            ]
+        );
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($reservation);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('courses');
+        }
+        else {
+            return $this->render(
+                '/admin/reservation.html.twig',
+                ['form' => $form->createView()]
+            );
+            
+        }
     }
 
 

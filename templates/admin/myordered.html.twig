@@ -1,0 +1,45 @@
+{% extends 'admin/base.html.twig' %}
+{% block mainadmin %}
+
+<h2>My ordered courses </h2>
+<div class="table-responsive">
+        
+    <table class="table table-striped table-sm">
+    <thead>
+        <tr>
+        <th>#</th>
+        <th>Image</th>
+        <th>Order created at:</th>
+        <th>Course</th>
+        <th>Price</th>
+        <th>Level</th>
+        <th>Teacher</th>
+        <th>Sheduled on:</th>
+        <th>Sheduled at:</th>  
+        <th>Check materials for this course</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ordercourse in ordercourses %}
+        <tr>
+        <td>{{ordercourse.id}}</td>
+        <td class="product-thumbnail"> <img style="width: 70px; height:70px;" src="{{ asset ('filesCourse/' ~ ordercourse.reservation.course.coursePhoto) }}" alt="{{ordercourse.reservation.course.namecourse}}"  class="img-fluid"></td>  
+        <td>{{ ordercourse.createdat|date("m/d/Y H:i:s")}}</td>
+        <td>{{ ordercourse.reservation.course.namecourse}}</td>
+        <td>{{ ordercourse.total}}</td>
+        <td>{{ ordercourse.reservation.course.level}}</td>
+        <td>{{ ordercourse.reservation.course.user.firstname}} {{ ordercourse.reservation.course.user.lastname}}</td>
+        <td>{{ ordercourse.reservation.date|date("m/d/Y")}} </td>
+        <td>{{ ordercourse.reservation.time|date('H:i:s')}}</td>
+        <td><a href="{{path ('display-coursedata', {'course': ordercourse.reservation.course.id })}}">Materials for this course</a></td>
+       
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}
+
