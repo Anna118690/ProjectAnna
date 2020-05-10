@@ -3,38 +3,30 @@
 
 <h2>My profile </h2>
 <div class="containerProfile">
+    <div class="profile-bio">
 
+        <p>Hello<span style="color:#7971ea; font-weight:bold;"  class="profile-real-name"> {{profil.firstname}}  {{profil.lastname}} !</span> Great to see you again!</p>
+
+    </div>
     <div class="profile">
 
         <div class="profile-image">
 
-            <img src="{{ asset('/files/' ~ profil.photo)}}" alt="Profile picture">
+            <img style="width: 250px; height:250px;" src="{{ asset('/files/' ~ profil.photo)}}" alt="Profile picture">
 
         </div>
 
         <div class="profile-user-settings">
 
-            <h2 class="profile-user-name">Firstname : {{profil.firstname}}  </h2>
-            <h2 class="profile-user-surname"> Lastname: {{profil.lastname}}</h2>
-            <h2 class="profile-user-skype">Telephone: {{profil.telephone}}</h2>
-            <h2 class="profile-user-skype">Skype: {{profil.skype}}</h2>
+            <h2  class="profile-user-name">Firstname: <span style="color:#7971ea; font-weight:bold;" > {{profil.firstname}}  </span></h2>
+            <h2 class="profile-user-surname"> Lastname: <span style="color:#7971ea; font-weight:bold;" > {{profil.lastname}}  </span></h2>
+            <h2 class="profile-user-skype">Telephone: <span style="color:#7971ea; font-weight:bold;" > {{profil.telephone}}  </span></h2>
+            <h2 class="profile-user-skype">Skype: <span style="color:#7971ea; font-weight:bold;" > {{profil.skype}}  </span></h2>
         </div>
 
-        <div class="profile-stats">
+    
 
-            <ul>
-                <li><span class="profile-stat-count">13</span> Number of scheduled hours of courses</li>
-                <li><span class="profile-stat-count">25</span> Number of hours of courses completed</li>
       
-            </ul>
-
-        </div>
-
-        <div class="profile-bio">
-
-            <p><span class="profile-real-name">Hello {{profil.firstname}}  {{profil.lastname}} !</span> Great to see you again!</p>
-
-        </div>
 
     </div>
     <!-- End of profile section -->

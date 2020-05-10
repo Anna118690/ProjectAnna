@@ -2,6 +2,13 @@
 {% block mainadmin %}
 
 <h2>My ordered courses </h2>
+<div class="profile-stats">
+
+    <ul>
+        <li><span style="color:#7971ea; font-weight:bold;" class="profile-stat-count"> You have: {{student.ordercourses.count}}</span> scheduled hours of courses</li>
+    </ul>
+
+</div>
 <div class="table-responsive">
         
     <table class="table table-striped table-sm">

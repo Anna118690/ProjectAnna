@@ -36,7 +36,7 @@
         <td>{{ course.language}}</td>
         <td>{{ course.level}}</td>
         <td>{{ course.approach}}</td>
-        <td>{{ course.user.lastname}}</td>
+        <td>{{ course.user.firstname}} {{ course.user.lastname}}</td>
     
         
         <td><a href="/admin/su/updatecourse/{{course.id}}" onclick="update_course(event);"><i style="color:red;" class="fas fa-trash"></i>Update</a></td>
