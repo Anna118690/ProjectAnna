@@ -40,12 +40,13 @@ Regular user : anna5@gmail.com
 19.	Listing of all courses – OK
 20.	Selecting a course with details – ok
 21. Filters – fiter by level, language, price - ok
-22. Contact -  send a email - ok
-23. Order the course - ok
+22. Paginator - ok
+23. Contact -  send a email - ok
+24. Order the course - ok
 
 TO DO :
 
-24. Payment by PayPal
+25. Payment by PayPal
 
 
 

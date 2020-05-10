@@ -21,15 +21,15 @@ class DisplayController extends AbstractController
 {
 
     /**
-     * @Route("/display", defaults={"page" : "1"}, name="display")
+     * @Route("/display{page}", defaults={"page" : "1"}, name="display")
      */
-    public function display(Request $request)
+    public function display(Request $request, $page)
     {
       $data = new SearchData();
       $data->page = $request->get('page', 1);
       $form = $this->createForm(SearchForm::class, $data);
       $form->handleRequest($request);
-      $courses = $this->getDoctrine()->getRepository(Course::class)->findSearch($data);
+      $courses = $this->getDoctrine()->getRepository(Course::class)->findSearch($data, $page);
             
       
       return $this->render("display/courses.html.twig", [
