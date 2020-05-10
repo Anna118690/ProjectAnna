@@ -1,14 +1,14 @@
-1. composer install
-2. create a new database 'bookercourse': 
+1. installation of dependences:  composer install
+2. create a new database:
    php bin/console doctrine:database:create
 3. php bin/console make:migration
 4. php bin/console doctrine:migrations:migrate
-5. import the file with data called 'bookercoursegood4.sql' to the database,      before dischecked "Enable foreign key checks"
+5. import the file 'bookercoursegood4.sql' to the database MySQL, before dischecked "Enable foreign key checks"
 6. symfony serve
 
-Password : 123456
-Admin : admin@gmail.com
-Regular user : anna5@gmail.com
+Password for all: 123456
+Admin : admin@gmail.com, (teacher as admin) : peterteacher@gmail.com
+Regular user  (student): anna5@gmail.com
 
 1.	Registration a new user – ok
 2.	Login OK
