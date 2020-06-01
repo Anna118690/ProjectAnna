@@ -43,10 +43,9 @@ Regular user  (student): anna5@gmail.com
 22. Paginator - ok
 23. Contact -  send a email - ok
 24. Order the course - ok
+25. PayPal
 
-TO DO :
 
-25. Payment by PayPal
 
 
 

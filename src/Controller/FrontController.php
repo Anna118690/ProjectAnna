@@ -29,45 +29,7 @@ class FrontController extends AbstractController
         return $this->render('front/about.html.twig');
     }
 
-    /**
-     * @Route("/cart", name="cart")
-     */
-    public function cart()
-    {
-        return $this->render('front/cart.html.twig');
-    }
 
-     /**
-     * @Route("/checkout", name="checkout")
-     */
-    public function checkout()
-    {
-        return $this->render('front/checkout.html.twig');
-    }
-
-     /**
-     * @Route("/shopsingle", name="shopsingle")
-     */
-    public function shopsingle()
-    {
-        return $this->render('front/shop-single.html.twig');
-    }
-
-    /**
-     * @Route("/shop", name="shop")
-     */
-    public function shop()
-    {
-        return $this->render('front/shop.html.twig');
-    }
-
-    /**
-     * @Route("/thankyou", name="thankyou")
-     */
-    public function thankyou()
-    {
-        return $this->render('front/thankyou.html.twig');
-    }
 
     /**
      * @Route("/contact", name="contact")

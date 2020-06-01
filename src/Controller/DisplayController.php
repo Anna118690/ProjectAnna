@@ -79,7 +79,7 @@ class DisplayController extends AbstractController
       $em->persist($ordercourse);
       $em->flush();
 
-      return $this->render ("/display/payment.html.twig",
+      return $this->render ("/display/paypal.html.twig",
       ['reservation' => $repo -> reservationDetails($reservation), 'ordercourse' => $ordercourse ]);
      
   }
